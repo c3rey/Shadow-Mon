@@ -8,6 +8,7 @@ public class Thing implements Comparable<Thing>{
     public BufferedImage image;
     public Rectangle solidArea;
 
+
     public void draw(Graphics2D g2){
         g2.drawImage(image, worldX, worldY, width, height, null);
     }

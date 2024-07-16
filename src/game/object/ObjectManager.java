@@ -33,21 +33,14 @@ public class ObjectManager {
     }
 
     private void setObjects(){
-        try {
-            objArray[0] = new RetrievableGameObject(map2, 355, 255, 30, 30);
-            ((RetrievableGameObject)objArray[0]).setImage(ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\object\\RetrievableKey1.png")),
-                                                            ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\object\\RetrievableKey2.png")));
-        } catch (IOException e) {
-            System.err.println("IOException in setObjects");
-        }
-
+        objArray[0] = new RetrievableGameObject(map2, RetrievableGameObject.KEY, 350, 280);
     }
 
 
-    //updates objects in World.update()
+    //updates objects in World.updateDoors()
     public void updateObjects(Player player){
 
-        spriteNum++; //is incremented every time update() is called, 60 times per second
+        spriteNum++; //is incremented every time updateDoors() is called, 60 times per second
 
         if (spriteNum > 30){
             spriteCount++;
@@ -65,14 +58,8 @@ public class ObjectManager {
 
                 promptM.displayInteractPrompt(interactAreaOverlap); //displays interact prompt
 
-                //RETRIEVABLEGAMEOBJECT ANIMATION
-                //creates an animation to signify to player that game.object is retrievable
-                if(spriteCount == 0){
-                    gameObject.image = ((RetrievableGameObject)gameObject).image1;
-                }
-                if(spriteCount == 1){
-                    gameObject.image = ((RetrievableGameObject)gameObject).image2;
-                }
+                ((RetrievableGameObject) gameObject).update(spriteCount);
+
 
                 //and checks whether the player has gotten close enough to the game.object to interact with it
                 if (interactAreaOverlap && player.isInteracting) {
@@ -81,7 +68,6 @@ public class ObjectManager {
 
 
                 //RETRIEVING OBJECTS
-                ((RetrievableGameObject) gameObject).checkRetrieved(); //sets solidArea to size 0 if object has been retrieved
 
                 if (((RetrievableGameObject) gameObject).isReplacing && !player.solidArea.intersects(((RetrievableGameObject) gameObject).replacingArea)){
                     //once the Player leaves the GameObject's solidArea, the replacement process is completed and the solidArea is restored

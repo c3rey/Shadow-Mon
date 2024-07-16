@@ -8,20 +8,19 @@ import java.awt.image.BufferedImage;
 
 public class GameObject extends Thing{
 
+    //public static final int [name of GameObject here]
+
     public final boolean retrieved = false;
     public boolean collisionOn = true;
     public Level level;
     public Map map;
     public int interactAreaWidth, interactAreaHeight;
     public Rectangle interactArea;
+    public int type;
 
-    public GameObject(Map map, int worldX, int worldY, int width, int height) {
+    public GameObject(Map map, int type, int worldX, int worldY) {
         this.map = map;
-        this.level = map.level;
-        this.worldX = worldX;
-        this.worldY = worldY;
-        this.width = width;
-        this.height = height;
+        this.type = type;
 
         interactAreaWidth = width + 10;
         interactAreaHeight = height + 10;
@@ -30,8 +29,12 @@ public class GameObject extends Thing{
         solidArea = new Rectangle(worldX, worldY, width, height);
     }
 
-    void setImage(BufferedImage image) {
-        this.image = image;
+    private void setGameObject(int type){
+        switch (type){
+            //case [name of GameObject here]:
+            //  image = [image file]
+            //  width, height = [witdth and height]
+        }
     }
 
 }

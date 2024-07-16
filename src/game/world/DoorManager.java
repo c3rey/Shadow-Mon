@@ -24,7 +24,7 @@ public class DoorManager {
         doors[0] = new Door(map1, map2, Door.WOODENDOOR, 8, 8);
     }
 
-    public void update(Player player){
+    public void updateDoors(Player player){
 
         for (Door door : doors){
             door.update();

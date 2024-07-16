@@ -45,19 +45,15 @@ public class Door extends Thing {
                 case WOODENDOOR:
                     doorClosedImage = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\doors\\woodendoor.png"));
                     break;
-                case ANCIENTDOOR:
-                    //blah blah blah
-                    break;
-                case MODERNDOOR:
-                    //blah blah blah
-                    break;
             }
         }catch (IOException e){
             System.err.println("IOException in Door");
         }
+
+        image = doorClosedImage;
     }
 
-    void setDoorCoOrds(int xTileNum, int yTileNum){
+    private void setDoorCoOrds(int xTileNum, int yTileNum){
         this.xTile = xTileNum; this.yTile = yTileNum;
 
         worldX = xTileNum * GamePanel.tileSize;

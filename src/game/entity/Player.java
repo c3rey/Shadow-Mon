@@ -85,9 +85,9 @@ public class Player extends Entity {
         inventory.drop(object);
     }
 
-    public void update(){ //update method to be called in GamePanel.update()
+    public void update(){ //updateDoors method to be called in GamePanel.updateDoors()
         if (!inventory.inventoryDrawn){
-            spriteNum++; //is incremented every time update() is called, therefore 60 times a second
+            spriteNum++; //is incremented every time updateDoors() is called, therefore 60 times a second
 
             //used to create Player walking animation
             if (spriteNum == 12) {

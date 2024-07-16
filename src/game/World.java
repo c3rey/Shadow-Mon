@@ -11,9 +11,7 @@ import game.world.Level;
 import game.world.LevelManager;
 import game.world.tile.TileManager;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -34,7 +32,7 @@ public class World {
     World(GamePanel gp){
         this.gp = gp;
 
-        thingArray = new ArrayList<Thing>();
+        thingArray = new ArrayList<>();
 
         thingArray.add(player);
         thingArray.addAll(Arrays.asList(objM.objArray));
@@ -43,13 +41,13 @@ public class World {
 
     void update(){
         objM.updateObjects(player);
-        doorM.update(player);
+        doorM.updateDoors(player);
         player.update();
     }
 
 
     void draw(Graphics2D g2){
-        tileM.draw(g2, level.currentMap.tileArray); //draws current map
+        tileM.draw(g2, level.currentMap.tileArray); //draws current map first
 
         Collections.sort(thingArray); //sorts thingArray in order of worldY value (least to greatest)
 
@@ -73,7 +71,7 @@ public class World {
 
                if (((Door) thing).entryMap == level.currentMap){
                    thing.draw(g2);
-                   System.out.println("door drawn");
+                   System.out.println(thing.image.toString());
                }
 
            }else{
