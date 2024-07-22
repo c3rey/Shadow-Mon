@@ -1,12 +1,5 @@
 package game;
 
-import game.prompt.PromptManager;
-import game.world.Level;
-import game.world.LevelManager;
-import game.object.ObjectManager;
-import game.world.tile.TileManager;
-import game.entity.Player;
-
 import javax.swing.JPanel;
 import java.awt.*;
 

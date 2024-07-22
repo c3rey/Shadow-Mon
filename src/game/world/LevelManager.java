@@ -27,15 +27,15 @@ public class LevelManager {
 
     private void setMaps(){
         try {
-            map1 = new Map(converter.convertToMap
+            map1 = new Map(converter.convertToTileArray
                     (new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\maps\\ShadowMon-map1.txt")));
             map1.setLevel(level);
 
-            map2 = new Map(converter.convertToMap
+            map2 = new Map(converter.convertToTileArray
                     (new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\maps\\ShadowMon-map2.txt")));
             map2.setLevel(level);
 
-            map3 = new Map(converter.convertToMap
+            map3 = new Map(converter.convertToTileArray
                     (new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\maps\\ShadowMon-map3.txt")));
             map3.setLevel(level);
 

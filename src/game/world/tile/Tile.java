@@ -13,10 +13,10 @@ public class Tile {
 
     public Tile(int tileNum){
         this.tileNum = tileNum;
-        setTiles();
+        setTile();
     }
 
-    private void setTiles(){
+    private void setTile(){
         try{
             switch (tileNum){
                 case 0:

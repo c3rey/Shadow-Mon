@@ -16,10 +16,8 @@ public class Map {
 
     public int leftPlayerX, leftPlayerY, rightPlayerX, rightPlayerY, upPlayerX, upPlayerY, downPlayerX, downPlayerY;
 
-    public Map(int[][] mapArray){ //constructor
-        tileArray = new Tile[12][16];
-        setTileArray(mapArray);
-
+    public Map(Tile[][] tileArray){ //constructor
+        this.tileArray = tileArray;
         currentNumBoundaries = 0;
     }
 
@@ -43,19 +41,6 @@ public class Map {
     void setEastSpawn(int x, int y){
         rightPlayerX = x;
         rightPlayerY = y;
-    }
-
-    private void setTileArray(int[][] mapArray){
-        int i = 0;
-        int j = 0;
-        for (int[] row: mapArray){
-            for (int tileNum: row){
-                tileArray[i][j] = new Tile(tileNum);
-                j++;
-            }
-            j = 0;
-            i++;
-        }
     }
 
 

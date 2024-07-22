@@ -1,13 +1,11 @@
 package game;
 
-import game.entity.Entity;
 import game.entity.Player;
 import game.object.GameObject;
 import game.object.ObjectManager;
 import game.object.RetrievableGameObject;
-import game.prompt.PromptManager;
-import game.world.Door;
-import game.world.DoorManager;
+import game.door.Door;
+import game.door.DoorManager;
 import game.world.Level;
 import game.world.Map;
 import game.world.tile.Tile;
@@ -19,7 +17,6 @@ public class CollisionChecker {
     Map currentMap;
     Player player;
     ObjectManager objectManager;
-    PromptManager promptManager;
     DoorManager doorManager;
     World world;
 
@@ -33,7 +30,10 @@ public class CollisionChecker {
         boolean collisionOn = false;
 
         for (GameObject object : objectManager.objArray){
-            collisionOn = checkObject(player, object);
+            if (checkObject(object)) { //if any of the checkObject() calls returns true, collision is turned on
+                collisionOn = true;
+            }
+
             if (((RetrievableGameObject) object).isReplacing){
                 collisionOn = false;
             }
@@ -41,10 +41,9 @@ public class CollisionChecker {
         return collisionOn;
     }
 
-    private boolean checkObject(Entity entity, GameObject gameObject){ //checks collision for a single GameObject
+    private boolean checkObject(GameObject gameObject){ //checks collision for a single GameObject
         currentLevel = world.lvlM.level;
         currentMap = currentLevel.currentMap;
-        Rectangle nextEntityPosition; //a Rectangle representing the next area the Player's solidArea will take up
         boolean collisionOn = false;
 
         if (currentMap == gameObject.map && gameObject.collisionOn) {

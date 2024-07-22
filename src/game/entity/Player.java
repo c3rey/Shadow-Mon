@@ -85,17 +85,17 @@ public class Player extends Entity {
         inventory.drop(object);
     }
 
-    public void update(){ //updateDoors method to be called in GamePanel.updateDoors()
+    public void update(){ //update method to be called in World.update()
         if (!inventory.inventoryDrawn){
-            spriteNum++; //is incremented every time updateDoors() is called, therefore 60 times a second
+            updateCount++; //is incremented every time update() is called, therefore 60 times a second
 
             //used to create Player walking animation
-            if (spriteNum == 12) {
+            if (updateCount == 12) {
                 spriteCount++;
             }
-            if (spriteNum == 24){
+            if (updateCount == 24){
                 spriteCount = 0;
-                spriteNum = 0;
+                updateCount = 0;
             }
 
             //direction conditions based on keyHandler
@@ -140,7 +140,6 @@ public class Player extends Entity {
                     case "up":
                         if (keyH.upPressed){
                             worldY -= speed;
-                            screenY -= speed;
 
                             if (spriteCount == 0){
                                 image = up2;
@@ -152,7 +151,6 @@ public class Player extends Entity {
                     case "down":
                         if (keyH.downPressed){
                             worldY += speed;
-                            screenY += speed;
 
                             if (spriteCount == 0){
                                 image = down2;
@@ -164,7 +162,6 @@ public class Player extends Entity {
                     case "left":
                         if (keyH.leftPressed){
                             worldX -= speed;
-                            screenX -= speed;
 
                             if (spriteCount == 0){
                                 image = left2;
@@ -174,7 +171,6 @@ public class Player extends Entity {
                     case "right":
                         if(keyH.rightPressed){
                             worldX += speed;
-                            screenX += speed;
                         }
 
                         if (spriteCount == 0 && keyH.rightPressed){
@@ -261,16 +257,16 @@ public class Player extends Entity {
         private void drop(RetrievableGameObject object){ //used when player drops a RetrievableGameObject. Drops item where Player currently is
             switch (player.direction){
                 case "up":
-                    object.replace(player.worldX, player.worldY - gp.tileSize/2);
+                    object.replace(player.worldX, player.worldY - GamePanel.tileSize /2);
                     break;
                 case "down":
-                    object.replace(player.worldX + gp.tileSize/4, player.worldY + gp.tileSize);
+                    object.replace(player.worldX + GamePanel.tileSize /4, player.worldY + GamePanel.tileSize);
                     break;
                 case "left":
-                    object.replace(player.worldX - gp.tileSize/2, player.worldY + gp.tileSize/4);
+                    object.replace(player.worldX - GamePanel.tileSize /2, player.worldY + GamePanel.tileSize /4);
                     break;
                 case "right":
-                    object.replace(player.worldX + gp.tileSize/2, player.worldY + gp.tileSize/4);
+                    object.replace(player.worldX + GamePanel.tileSize /2, player.worldY + GamePanel.tileSize /4);
             }
             //inventoryArray.remove(object);
         }

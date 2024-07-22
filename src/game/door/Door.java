@@ -1,7 +1,9 @@
-package game.world;
+package game.door;
 
 import game.GamePanel;
 import game.Thing;
+import game.world.Level;
+import game.world.Map;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,7 +14,7 @@ import java.io.IOException;
 public class Door extends Thing {
     public Map entryMap, exitRoom;
     public Level level;
-    public BufferedImage image, doorClosedImage, doorOpenImage;
+    public BufferedImage doorClosedImage, doorOpenImage;
     public Rectangle interactArea;
     public boolean isClosed;
     public int xTile, yTile;

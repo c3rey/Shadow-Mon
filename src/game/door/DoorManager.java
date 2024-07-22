@@ -1,4 +1,4 @@
-package game.world;
+package game.door;
 
 import game.World;
 import game.entity.Player;
@@ -21,7 +21,7 @@ public class DoorManager {
     }
 
     private void setDoors(){
-        doors[0] = new Door(map1, map2, Door.WOODENDOOR, 8, 8);
+        doors[0] = new Door(map1, map2, Door.WOODENDOOR, 8, 4);
     }
 
     public void updateDoors(Player player){

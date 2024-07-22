@@ -5,8 +5,8 @@ import game.object.GameObject;
 import game.object.ObjectManager;
 import game.object.RetrievableGameObject;
 import game.prompt.PromptManager;
-import game.world.Door;
-import game.world.DoorManager;
+import game.door.Door;
+import game.door.DoorManager;
 import game.world.Level;
 import game.world.LevelManager;
 import game.world.tile.TileManager;
@@ -49,7 +49,7 @@ public class World {
     void draw(Graphics2D g2){
         tileM.draw(g2, level.currentMap.tileArray); //draws current map first
 
-        Collections.sort(thingArray); //sorts thingArray in order of worldY value (least to greatest)
+        Collections.sort(thingArray); //sorts thingArray in order of screenY value (least to greatest)
 
         for (Thing thing : thingArray){
 
@@ -57,27 +57,24 @@ public class World {
 
                if (((GameObject) thing).map == level.currentMap){
                    thing.draw(g2);
-                   System.out.println("gameObject drawn");
                }
 
            }else if (thing.getClass() == RetrievableGameObject.class){
 
                if (!((RetrievableGameObject) thing).retrieved && ((RetrievableGameObject) thing).map == level.currentMap){
                    thing.draw(g2);
-                   System.out.println("retrievableGameObject drawn");
                }
 
            }else if (thing.getClass() == Door.class) {
 
                if (((Door) thing).entryMap == level.currentMap){
                    thing.draw(g2);
-                   System.out.println(thing.image.toString());
                }
 
            }else{
 
                thing.draw(g2);
-               System.out.println("player drawn");
+               System.out.println(thing.worldX + " " + thing.worldY);
 
            }
         }

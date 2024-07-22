@@ -1,5 +1,7 @@
 package game;
 
+import game.world.tile.Tile;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -10,9 +12,9 @@ public class FileToMapConverter {
     public FileToMapConverter(){
     }
 
-    public int[][] convertToMap(File mapFile) throws FileNotFoundException{
+    public Tile[][] convertToTileArray(File mapFile) throws FileNotFoundException{
 
-        int[][] mapArray = new int[12][16];
+        Tile[][] tileArray = new Tile[12][16];
         scanner = new Scanner(mapFile);
         int tileNumber;
         int i = 0;
@@ -24,7 +26,7 @@ public class FileToMapConverter {
             String[] row = line.split(" ");
             for (String number : row){
                 tileNumber = Integer.parseInt(number);
-                mapArray[j][i] = tileNumber;
+                tileArray[j][i] = new Tile(tileNumber);
                 i++;
             }
             i = 0;
@@ -32,7 +34,7 @@ public class FileToMapConverter {
         }
 
 
-        return mapArray;
+        return tileArray;
 
     }
 }
