@@ -10,9 +10,7 @@ public class GameObject extends Thing{
 
     //public static final int [name of GameObject here]
 
-    public final boolean retrieved = false;
     public boolean collisionOn = true;
-    public Level level;
     public Map map;
     public int interactAreaWidth, interactAreaHeight;
     public Rectangle interactArea;
@@ -27,14 +25,6 @@ public class GameObject extends Thing{
 
         interactArea = new Rectangle(worldX, worldY, interactAreaWidth, interactAreaHeight);
         solidArea = new Rectangle(worldX, worldY, width, height);
-    }
-
-    private void setGameObject(int type){
-        switch (type){
-            //case [name of GameObject here]:
-            //  image = [image file]
-            //  width, height = [witdth and height]
-        }
     }
 
 }

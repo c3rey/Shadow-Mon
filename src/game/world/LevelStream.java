@@ -1,23 +1,24 @@
-package game.world;
+package game;
 
-import game.FileToMapConverter;
-import game.World;
-import game.entity.Player;
+import game.thing.entity.Player;
+import game.world.Level;
+import game.world.Map;
+import game.world.World;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class LevelManager {
+public class WorldBuilder {
 
     //All levels will eventually be instantiated here
-    public Level level = new Level();
+    public Level level1 = new Level();
 
     World world;
     Player player;
 
     FileToMapConverter converter = new FileToMapConverter();
 
-    public LevelManager(World world) {
+    public WorldBuilder(World world) {
         this.world = world;
         player = world.player;
 
@@ -29,28 +30,25 @@ public class LevelManager {
         try {
             map1 = new Map(converter.convertToTileArray
                     (new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\maps\\ShadowMon-map1.txt")));
-            map1.setLevel(level);
 
             map2 = new Map(converter.convertToTileArray
                     (new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\maps\\ShadowMon-map2.txt")));
-            map2.setLevel(level);
 
             map3 = new Map(converter.convertToTileArray
                     (new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\maps\\ShadowMon-map3.txt")));
-            map3.setLevel(level);
 
         } catch (FileNotFoundException e) {
-            System.out.println("FileNotFoundException in LevelManager");
+            System.out.println("FileNotFoundException in WorldBuilder");
         }
     }
 
     private void setLevel1(){
-        world.level = level; // is here in a method because LevelManager is instantiated in Gamepanel before gp.Level
+        world.level = level1; // is here in a method because WorldBuilder is instantiated in Gamepanel before gp.Level
 
-        level.setStartingMap(map1);
+        level1.setStartingMap(map1);
 
-        level.addRight(map1, map2);
-        level.addUp(map2, map3);
+        level1.addRight(map1, map2);
+        level1.addUp(map2, map3);
 
         map1.setWestSpawn(10, 250);
         map1.setEastSpawn(700, 250);
