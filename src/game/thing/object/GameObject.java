@@ -1,30 +1,29 @@
-package game.object;
-import game.Thing;
-import game.world.Level;
+package game.thing.object;
+import game.thing.Thing;
 import game.world.Map;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class GameObject extends Thing{
 
     //public static final int [name of GameObject here]
 
-    public boolean collisionOn = true;
     public Map map;
-    public int interactAreaWidth, interactAreaHeight;
-    public Rectangle interactArea;
-    public int type;
+    public int objectNum;
 
-    public GameObject(Map map, int type, int worldX, int worldY) {
+    public GameObject(Map map, int objectNum, int worldX, int worldY) {
         this.map = map;
-        this.type = type;
+        this.objectNum = objectNum;
 
-        interactAreaWidth = width + 10;
-        interactAreaHeight = height + 10;
+        interactArea = new Rectangle(worldX, worldY, width + 10, height + 10);
+        solidArea = new Rectangle(worldX, worldY + 10, width, height);
 
-        interactArea = new Rectangle(worldX, worldY, interactAreaWidth, interactAreaHeight);
-        solidArea = new Rectangle(worldX, worldY, width, height);
+        interactArea.width = width + 10;
+        interactArea.height = height + 10;
+    }
+
+    private void setObject(int objectNum){
+        //see setObject() in RetrievableGameObject for reference
     }
 
 }

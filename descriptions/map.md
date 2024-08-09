@@ -1,10 +1,12 @@
 __Map__
 
-The background that the player exists in.
-\
-\
-\
-\
+The background that the [Player](player.md) exists in.
+
+| Variable                       | Type     | Description                                                |
+|--------------------------------|----------|------------------------------------------------------------|
+| level                          | Level    | The Map's level.                                           |
+| tileArray                      | Tile[][] | A 2D array of Tiles that represent the tiles on the Map.   |
+| up<br/>down<br/>left<br/>right | Map      | The Map to the up, down, left, or right of the current Map |
 \
 \
 \

@@ -1,14 +1,12 @@
-package game;
+package game.world;
 
+import game.FileToMapConverter;
 import game.thing.entity.Player;
-import game.world.Level;
-import game.world.Map;
-import game.world.World;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 
-public class WorldBuilder {
+public class LevelStream {
 
     //All levels will eventually be instantiated here
     public Level level1 = new Level();
@@ -18,7 +16,7 @@ public class WorldBuilder {
 
     FileToMapConverter converter = new FileToMapConverter();
 
-    public WorldBuilder(World world) {
+    public LevelStream(World world) {
         this.world = world;
         player = world.player;
 
@@ -38,15 +36,14 @@ public class WorldBuilder {
                     (new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\maps\\ShadowMon-map3.txt")));
 
         } catch (FileNotFoundException e) {
-            System.out.println("FileNotFoundException in WorldBuilder");
+            System.out.println("FileNotFoundException in LevelStream");
         }
     }
 
     private void setLevel1(){
-        world.level = level1; // is here in a method because WorldBuilder is instantiated in Gamepanel before gp.Level
+        world.level = level1; // is here in a method because LevelStream is instantiated in Gamepanel before gp.Level
 
         level1.setStartingMap(map1);
-
         level1.addRight(map1, map2);
         level1.addUp(map2, map3);
 

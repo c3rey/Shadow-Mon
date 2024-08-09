@@ -1,4 +1,4 @@
-package game.object;
+package game.thing.object;
 
 import game.world.Map;
 
@@ -19,13 +19,13 @@ public class RetrievableGameObject extends GameObject{
     public boolean isReplacing = false;
 
 
-    RetrievableGameObject(Map map, int type, int worldX, int worldY) {
-        super(map, type, worldX, worldY);
+    RetrievableGameObject(Map map, int objectNum, int worldX, int worldY) {
+        super(map, objectNum, worldX, worldY);
 
         this.map = map;
         this.worldX = worldX;
         this.worldY = worldY;
-        setObject(type);
+        setObject(objectNum);
 
         retrieved = false;
     }
@@ -44,7 +44,7 @@ public class RetrievableGameObject extends GameObject{
             interactArea.setSize(0, 0);
         }else{
             solidArea.setSize(width, height);
-            interactArea.setSize(interactAreaWidth, interactAreaHeight);
+            interactArea.setSize(interactArea.width, interactArea.height);
         }
     }
 
@@ -52,7 +52,7 @@ public class RetrievableGameObject extends GameObject{
         this.worldX = x;
         this.worldY = y;
         solidArea.x = x;
-        solidArea.y = y;
+        solidArea.y = y + 10;
         interactArea.x = x;
         interactArea.y = y;
 
@@ -60,13 +60,14 @@ public class RetrievableGameObject extends GameObject{
         isReplacing = true; // object will be placed where Player is currently standing, isReplacing turns off object collision so that Player can walk off of it
     }
 
-    private void setObject(int type) {
+    private void setObject(int objectNum) {
         try {
-            switch (type) {
+            switch (objectNum) {
                 case (KEY):
                     image1 = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\object\\RetrievableKey1.png"));
                     image2 = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\object\\RetrievableKey2.png"));
                     displayImage = image1;
+                    collisionOn = true;
 
                     width = 30;
                     height = 30;

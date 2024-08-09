@@ -11,6 +11,12 @@ public class Tile {
     BufferedImage image;
     int tileNum;
 
+    public static final int BLACKTILE = 0;
+    public static final int WOODTILE = 1;
+    public static final int CREAMWALL = 2;
+    public static final int STONETILE = 3;
+
+
     public Tile(int tileNum){
         this.tileNum = tileNum;
         setTile();
@@ -19,19 +25,19 @@ public class Tile {
     private void setTile(){
         try{
             switch (tileNum){
-                case 0:
+                case BLACKTILE:
                     image = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\tile\\blacktile.png"));
                     collision = true;
                     break;
-                case 1:
+                case WOODTILE:
                     image = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\tile\\woodtile.png"));
                     collision = false;
                     break;
-                case 2:
+                case CREAMWALL:
                     image = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\tile\\creamwall.png"));
                     collision = true;
                     break;
-                case 3:
+                case STONETILE:
                     image = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\world\\tile\\stonetile.png"));
                     collision = false;
                     break;

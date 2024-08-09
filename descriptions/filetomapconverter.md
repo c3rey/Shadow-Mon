@@ -1,6 +1,10 @@
 __FileToMapConverter__
 
 Converts .txt files to [Maps](map.md).
+
+| Variable | Type    | Description                          |
+|----------|---------|--------------------------------------|
+| scanner  | Scanner | The scanner used to read file input. |
 \
 \
 \

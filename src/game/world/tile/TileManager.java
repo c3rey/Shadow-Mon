@@ -1,20 +1,16 @@
 package game.world.tile;
 
 import game.GamePanel;
-import game.World;
+import game.world.World;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 
 public class TileManager {
-    int currentTileCount = 4;
+    int currentTileCount = 4; //UPDATE MANUALLY AS NEW TILES ARE ADDED
     public Tile[] tileArray = new Tile[currentTileCount];
     World world;
-    GamePanel gp;
 
     private void setTiles() {
         tileArray[0] = new Tile(0);
@@ -31,27 +27,20 @@ public class TileManager {
         setTiles();
     }
 
-    public void draw(Graphics2D g2, Tile[][] map) {
+    public void draw(Graphics2D g2, Tile[][] tileArray) {
 
-        BufferedImage tileImg;
-        Tile currentTile;
         int x = 0;
         int y = 0;
 
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                    currentTile = map[i][j];
+        for (Tile[] tiles : tileArray) {
+            for (Tile tile : tiles) {
 
-                    tileImg = currentTile.image;
-
-                    g2.drawImage(tileImg, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
-
-                    x += GamePanel.tileSize; //shift to the right to print the next game.world.tile
-
+                g2.drawImage(tile.image, x, y, GamePanel.tileSize, GamePanel.tileSize, null);
+                x += GamePanel.tileSize; //shift to the right to print the next game.world.tile
 
             }
             x = 0;
-            y+= GamePanel.tileSize;
+            y += GamePanel.tileSize;
 
         }
     }

@@ -1,4 +1,4 @@
-package game;
+package game.thing;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -7,6 +7,8 @@ public class Thing implements Comparable<Thing>{
     public int worldX, worldY, width, height;
     public BufferedImage image;
     public Rectangle solidArea;
+    public Rectangle interactArea;
+    public boolean collisionOn;
 
 
     public void draw(Graphics2D g2){

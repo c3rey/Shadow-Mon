@@ -1,6 +1,6 @@
-package game.entity;
+package game.thing.entity;
 
-import game.Thing;
+import game.thing.Thing;
 
 import java.awt.image.BufferedImage;
 
@@ -12,6 +12,4 @@ public class Entity extends Thing {
 
     public int updateCount = 0;
     public int spriteCount = 0;
-
-    public boolean collisionOn = false;
 }

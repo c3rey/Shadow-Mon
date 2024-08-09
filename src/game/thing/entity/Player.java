@@ -1,9 +1,9 @@
-package game.entity;
+package game.thing.entity;
 
 import game.GamePanel;
 import game.KeyHandler;
-import game.World;
-import game.object.RetrievableGameObject;
+import game.world.World;
+import game.thing.object.RetrievableGameObject;
 import game.CollisionChecker;
 
 import javax.imageio.ImageIO;
@@ -21,7 +21,6 @@ public class Player extends Entity {
     public GamePanel gp;
     public World world;
     public Inventory inventory;
-    public Rectangle interactArea;
     public CollisionChecker cChecker;
     KeyHandler keyH;
 

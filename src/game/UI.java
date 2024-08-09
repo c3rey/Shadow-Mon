@@ -1,8 +1,7 @@
-package game.prompt;
+package game;
 
-import game.GamePanel;
-import game.World;
-import game.entity.Player;
+import game.world.World;
+import game.thing.entity.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,22 +9,34 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class PromptManager {
+public class UI {
     World world;
     Player player;
+    Player.Inventory inventory;
 
     private final Prompt[] prompts;
 
-    public PromptManager(World world){
+    public UI(World world){
         this.world = world;
         player = world.player;
+        inventory = world.player.inventory;
 
         int currentPromptNumber = 2;
         prompts = new Prompt[currentPromptNumber];
         setPrompts();
     }
 
-    public void setPrompts(){
+    public void update(){
+        inventory.update();
+    }
+
+    public void draw(Graphics2D g2){
+        displayIntroPrompt();
+        displayPrompts(g2);
+        inventory.draw(g2);
+    }
+
+    private void setPrompts(){
         prompts[0] = new Prompt(Prompt.INTERACT);
         prompts[1] = new Prompt(Prompt.TRAVERSAL);
     }
@@ -55,9 +66,10 @@ public class PromptManager {
     public static class Prompt {
         BufferedImage promptImage;
         int type;
+        public boolean isActive;
+
         public static final int INTERACT = 0;
         public static final int TRAVERSAL = 1;
-        public boolean isActive;
 
 
         private Prompt(int type){
@@ -65,7 +77,7 @@ public class PromptManager {
             setPromptImage();
         }
 
-        private void setPromptImage(){ //sets prompt image based on type
+        private void setPromptImage(){ //sets prompt image based on objectNum
             try {
                 switch (type){
                     case INTERACT:

@@ -1,14 +1,15 @@
-package game;
+package game.world;
 
-import game.entity.Player;
-import game.object.GameObject;
-import game.object.ObjectManager;
-import game.object.RetrievableGameObject;
-import game.prompt.PromptManager;
-import game.door.Door;
-import game.door.DoorManager;
-import game.world.Level;
-import game.world.LevelManager;
+import game.GamePanel;
+import game.KeyHandler;
+import game.thing.entity.Player;
+import game.thing.object.GameObject;
+import game.thing.object.ObjectManager;
+import game.thing.object.RetrievableGameObject;
+import game.UI;
+import game.thing.door.Door;
+import game.thing.door.DoorManager;
+import game.thing.Thing;
 import game.world.tile.TileManager;
 
 import java.awt.*;
@@ -19,17 +20,17 @@ import java.util.Collections;
 public class World {
 
     GamePanel gp;
-    KeyHandler keyH = new KeyHandler();
-    public Player player= new Player(this,keyH);;
+    public KeyHandler keyH = new KeyHandler();
+    public Player player= new Player(this,keyH);
+    public UI ui = new UI(this);
     public TileManager tileM = new TileManager(this);
-    public LevelManager lvlM = new LevelManager(this);
-    public PromptManager promptM = new PromptManager(this);
-    public ObjectManager objM = new ObjectManager(this, promptM);
-    public DoorManager doorM = new DoorManager(this, promptM);
+    public LevelStream stream = new LevelStream(this);
+    public ObjectManager objM = new ObjectManager(this, ui);
+    public DoorManager doorM = new DoorManager(this, ui);
     public Level level;
     ArrayList<Thing> thingArray;
 
-    World(GamePanel gp){
+    public World(GamePanel gp){
         this.gp = gp;
 
         thingArray = new ArrayList<>();
@@ -39,14 +40,14 @@ public class World {
         thingArray.addAll(Arrays.asList(doorM.doors));
     }
 
-    void update(){
+    public void update(){
         objM.updateObjects(player);
         doorM.updateDoors(player);
         player.update();
     }
 
 
-    void draw(Graphics2D g2){
+    public void draw(Graphics2D g2){
         tileM.draw(g2, level.currentMap.tileArray); //draws current map first
 
         Collections.sort(thingArray); //sorts thingArray in order of screenY value (least to greatest)
@@ -74,7 +75,6 @@ public class World {
            }else{
 
                thing.draw(g2);
-               System.out.println(thing.worldX + " " + thing.worldY);
 
            }
         }

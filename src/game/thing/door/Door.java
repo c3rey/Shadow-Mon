@@ -1,7 +1,7 @@
-package game.door;
+package game.thing.door;
 
 import game.GamePanel;
-import game.Thing;
+import game.thing.Thing;
 import game.world.Level;
 import game.world.Map;
 
@@ -18,26 +18,28 @@ public class Door extends Thing {
     public Rectangle interactArea;
     public boolean isClosed;
     public int xTile, yTile;
-    public int doorWidth, doorHeight;
+
     public static final int WOODENDOOR = 0;
     public static final int ANCIENTDOOR = 1;
     public static final int MODERNDOOR = 2;
 
-    public Door(Map entryMap, Map exitRoom, int type, int xTileNum, int yTileNum){
+    public Door(Map entryMap, Map exitRoom, int type, int xTile, int yTile){
         this.entryMap = entryMap;
         this.exitRoom = exitRoom;
+        this.xTile = xTile;
+        this.yTile = yTile;
 
         level = entryMap.level;
         isClosed = true;
 
-        setDoorImage(type);
-        setDoorCoOrds(xTileNum, yTileNum);
-
         width = GamePanel.tileSize;
         height = GamePanel.tileSize;
 
-        solidArea = new Rectangle(worldX, worldY, doorWidth, doorHeight);
-        interactArea = new Rectangle(worldX, worldY, doorWidth, doorHeight + 20);
+        solidArea = new Rectangle(worldX, worldY, width, height);
+        interactArea = new Rectangle(worldX, worldY, width, height + 20);
+
+        setDoorImage(type);
+        setDoorCoOrds();
     }
 
     private void setDoorImage(int type){
@@ -55,18 +57,18 @@ public class Door extends Thing {
         image = doorClosedImage;
     }
 
-    private void setDoorCoOrds(int xTileNum, int yTileNum){
-        this.xTile = xTileNum; this.yTile = yTileNum;
-
-        worldX = xTileNum * GamePanel.tileSize;
-        worldY = yTileNum * GamePanel.tileSize;
+    private void setDoorCoOrds(){
+        worldX = xTile * GamePanel.tileSize;
+        worldY = yTile * GamePanel.tileSize;
     }
 
     void update(){
         if (isClosed){
             image = doorClosedImage;
+            collisionOn = true;
         }else{
             image = doorOpenImage;
+            collisionOn = false;
         }
     }
 }

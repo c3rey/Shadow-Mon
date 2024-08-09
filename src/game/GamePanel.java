@@ -1,5 +1,7 @@
 package game;
 
+import game.world.World;
+
 import javax.swing.JPanel;
 import java.awt.*;
 
@@ -15,12 +17,11 @@ public class GamePanel extends JPanel implements Runnable{
     public static final int screenWidth = tileSize * maxScreenCol; //768 pixels
     public static final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
-    int FPS = 60;
+    public static final int FPS = 60;
 
     KeyHandler keyH;
     Thread gameThread;
     World world = new World(this);
-    UI UI = new UI(this);
 
     public GamePanel() {
         keyH = world.keyH;
@@ -41,39 +42,36 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
 
-        double drawInterval = 1000000000.00 /FPS; //16,666,666.667 or 0.01667 seconds
-        double delta = 0;
-        long lastTime = System.nanoTime();
-        long currentTime;
-        long timer = 0;
+        double drawInterval = 1000000000.00 /FPS; //16,666,666.667 nanoseconds or 0.01667 seconds
+        double nextDrawTime = System.nanoTime() + drawInterval;
 
-        while(gameThread != null) {
+        while (gameThread != null){
 
-            currentTime = System.nanoTime();
+            update();
+            repaint();
 
-            delta += (currentTime - lastTime) / drawInterval;
-            timer += (currentTime - lastTime);
-            lastTime = currentTime;
+            try{
+                double remainingTime = nextDrawTime - System.nanoTime();
+                remainingTime /= 1000000; //because Thread.sleep() accepts millisecond arguments, we convert nanos to millis
 
-            if(delta >= 1){
+                if (remainingTime < 0){ //in case updating and repainting takes more than the allotted time
+                    remainingTime = 0;
+                }
 
-                update();
-                repaint();
-                delta--;
+                Thread.sleep((long) remainingTime);
+                nextDrawTime += drawInterval;
 
+            }catch (InterruptedException e){
+                System.err.println("InterruptedException in Gamepanel");
             }
-
-            if (timer >= 1000000000){
-                timer = 0;
-            }
-
         }
+
     }
 
     public void update(){
 
         world.update();
-        UI.update();
+        world.ui.update();
 
     }
 
@@ -83,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D) g;
 
         world.draw(g2);
-        UI.draw(g2);
+        world.ui.draw(g2);
 
         g2.dispose();
     }

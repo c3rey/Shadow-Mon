@@ -8,11 +8,12 @@ public class Level {
 
     public void setStartingMap(Map startingMap){
         currentMap = startingMap;
+        currentMap.level = this;
     }
 
     //ADD METHODS
 
-    void addUp(Map originMap, Map addedMap){
+    public void addUp(Map originMap, Map addedMap){
         if (originMap.up != null){
             Map oldMap;
             oldMap = originMap.up;
@@ -24,10 +25,11 @@ public class Level {
 
         originMap.up = addedMap;
         addedMap.down = originMap;
+        addedMap.level = this;
 
     }
 
-    void addDown(Map originMap, Map addedMap){
+    public void addDown(Map originMap, Map addedMap){
         if (originMap.down != null){
             Map oldMap;
             oldMap = originMap.down;
@@ -39,10 +41,11 @@ public class Level {
 
         originMap.up = addedMap;
         addedMap.down = originMap;
+        addedMap.level = this;
 
     }
 
-    void addLeft(Map originMap, Map addedMap){
+    public void addLeft(Map originMap, Map addedMap){
         if (originMap.left != null){
             Map oldMap;
             oldMap = originMap.left;
@@ -54,10 +57,11 @@ public class Level {
 
         originMap.left = addedMap;
         addedMap.right = originMap;
+        addedMap.level = this;
 
     }
 
-    void addRight(Map originMap, Map addedMap){
+    public void addRight(Map originMap, Map addedMap){
         if (originMap.right != null){
             Map oldMap;
             oldMap = originMap.right;
@@ -69,6 +73,7 @@ public class Level {
 
         originMap.right = addedMap;
         addedMap.left = originMap;
+        addedMap.level = this;
 
     }
 

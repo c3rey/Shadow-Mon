@@ -1,24 +1,25 @@
 package game;
 
-import game.entity.Player;
-import game.object.GameObject;
-import game.object.ObjectManager;
-import game.object.RetrievableGameObject;
-import game.door.Door;
-import game.door.DoorManager;
+import game.thing.entity.Player;
+import game.thing.object.GameObject;
+import game.thing.object.ObjectManager;
+import game.thing.object.RetrievableGameObject;
+import game.thing.door.Door;
+import game.thing.door.DoorManager;
 import game.world.Level;
 import game.world.Map;
+import game.world.World;
 import game.world.tile.Tile;
 
 import java.awt.*;
 
 public class CollisionChecker {
+    World world;
     Level currentLevel;
     Map currentMap;
     Player player;
     ObjectManager objectManager;
     DoorManager doorManager;
-    World world;
 
     public CollisionChecker(Player player){
         this.player = player;
@@ -42,7 +43,7 @@ public class CollisionChecker {
     }
 
     private boolean checkObject(GameObject gameObject){ //checks collision for a single GameObject
-        currentLevel = world.lvlM.level;
+        currentLevel = world.stream.level1;
         currentMap = currentLevel.currentMap;
         boolean collisionOn = false;
 
@@ -57,7 +58,7 @@ public class CollisionChecker {
 
         boolean dropInvalid = false;
 
-        currentLevel = world.lvlM.level;
+        currentLevel = world.stream.level1;
         currentMap = currentLevel.currentMap;
 
         int objectLeftWorldX, objectRightWorldX, objectTopWorldY, objectBottomWorldY;
@@ -148,7 +149,7 @@ public class CollisionChecker {
 
     public boolean checkTileCollision(){ //checks the tiles at specified distance away from Player in the direction Player is facing
 
-        currentLevel = world.lvlM.level;
+        currentLevel = world.stream.level1;
         currentMap = currentLevel.currentMap;
 
         //the four lines that will be used to create the solidArea perimeter
