@@ -1,6 +1,6 @@
 __Gamepanel__
 
-This is where the game is run, updated, and drawn; World and UI call their update() and draw() methods here. 
+This is where the game is run, updated, and drawn; World calls its update() and draw() methods here. 
 KeyHandler is also added to this panel for player control.
 
 | Variable         | Type       | Description                                                                                       |
@@ -39,9 +39,9 @@ __run()__
 \
 __update()__
 
-world and world.ui's update methods are called here
+World's update method is called here.
 
 \
 __paintComponent(Graphics)__
 
-world and world.ui's draw methods are called here
+World's draw method is called here.

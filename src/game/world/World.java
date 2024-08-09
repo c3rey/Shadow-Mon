@@ -44,6 +44,7 @@ public class World {
         objM.updateObjects(player);
         doorM.updateDoors(player);
         player.update();
+        ui.update();
     }
 
 
@@ -78,5 +79,7 @@ public class World {
 
            }
         }
+
+        ui.draw(g2);
     }
 }

@@ -71,7 +71,6 @@ public class GamePanel extends JPanel implements Runnable{
     public void update(){
 
         world.update();
-        world.ui.update();
 
     }
 
@@ -81,7 +80,6 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D) g;
 
         world.draw(g2);
-        world.ui.draw(g2);
 
         g2.dispose();
     }

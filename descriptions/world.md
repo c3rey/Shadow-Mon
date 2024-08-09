@@ -1,6 +1,6 @@
 __World__
 
-Updates and draws all [Things](thing.md) currently in the game as well as the [Tiles](tile.md).
+Updates and draws all [Things](thing.md) currently in the game as well as the [Tiles](tile.md) and [UI](ui.md).
 
 | Variable   | Type             | Description                                  |
 |------------|------------------|----------------------------------------------|
@@ -20,7 +20,7 @@ Updates and draws all [Things](thing.md) currently in the game as well as the [T
 \
 __update()__
 
-Calls the update methods in objM, doorM, and player.
+Calls the update methods in objM, doorM, player, and UI.
 
 \
 __draw(Graphics2D)__
@@ -29,4 +29,4 @@ First calls tileM's draw method to draw the current map. Then sorts thingArray i
 (highest on the map to lowest) and draws all Things in that order. That way, when the player
 approaches a Thing from above it, they are drawn before that Thing, causing the appearance of the Player being
 behind that thing. When the player approaches a Thing from below, the opposite effect is induced, causing the 
-effect of the player being in front of that Thing.
+effect of the player being in front of that Thing. Finally, calls ui's draw method.
