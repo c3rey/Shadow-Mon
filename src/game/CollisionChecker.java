@@ -4,8 +4,6 @@ import game.thing.entity.Player;
 import game.thing.object.GameObject;
 import game.thing.object.ObjectManager;
 import game.thing.object.RetrievableGameObject;
-import game.thing.door.Door;
-import game.thing.door.DoorManager;
 import game.world.Level;
 import game.world.Map;
 import game.world.World;
@@ -19,7 +17,6 @@ public class CollisionChecker {
     Map currentMap;
     Player player;
     ObjectManager objectManager;
-    DoorManager doorManager;
 
     public CollisionChecker(Player player){
         this.player = player;
@@ -276,16 +273,16 @@ public class CollisionChecker {
     }
 
 
-    public void checkForDoors(){
-        doorManager = world.doorM;
-        Rectangle nextPlayerPosition = getNextPlayerPosition();
-
-        for (Door door : doorManager.doors){
-            if (!door.isClosed && nextPlayerPosition.intersects(door.solidArea)){ // if Door is open and Player walks into Door, player is taken to the Door's Room
-                currentLevel.goTo(door.exitRoom);
-            }
-        }
-    }
+//    public void checkForDoors(){
+//        doorManager = world.doorM;
+//        Rectangle nextPlayerPosition = getNextPlayerPosition();
+//
+//        for (Door door : doorManager.doors){
+//            if (!door.isClosed && nextPlayerPosition.intersects(door.solidArea)){ // if Door is open and Player walks into Door, player is taken to the Door's Room
+//                currentLevel.goTo(door.exitRoom);
+//            }
+//        }
+//    }
 
     private Rectangle getNextPlayerPosition() {
         Rectangle nextPlayerPosition = new Rectangle(player.solidArea.x, player.solidArea.y, player.solidArea.width, player.solidArea.height);

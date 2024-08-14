@@ -18,9 +18,9 @@ public class ObjectManager {
     private int spriteCount = 0;
     private int updateCount = 0;
 
-    public ObjectManager(World world, UI ui){
+    public ObjectManager(World world){
         this.world = world;
-        this.ui = ui;
+        ui = world.ui;
         player = world.player;
         cChecker = player.cChecker;
 
@@ -46,21 +46,18 @@ public class ObjectManager {
         }
 
         for (GameObject gameObject : objArray){ //for gameObject in objArray:
-            boolean interactAreaOverlap = (player.interactArea.intersects(gameObject.interactArea) && (world.level.currentMap == gameObject.map));
-
+            
             if (((RetrievableGameObject) gameObject).retrieved){
                 gameObject.map = world.level.currentMap;
             }
 
             if (gameObject.getClass() == RetrievableGameObject.class){ // if the gameObject is a retrievableGameObject...
 
-                ui.displayInteractPrompt(interactAreaOverlap); //displays interact prompt
-
                 ((RetrievableGameObject) gameObject).update(updateCount);
 
 
                 //and checks whether the player has gotten close enough to the game.object to interact with it
-                if (interactAreaOverlap && player.isInteracting) {
+                if (player.interactsWith(gameObject)) {
                     player.pickUp((RetrievableGameObject) gameObject);
                 }
 

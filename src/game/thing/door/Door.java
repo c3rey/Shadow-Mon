@@ -15,7 +15,6 @@ public class Door extends Thing {
     public Map entryMap, exitRoom;
     public Level level;
     public BufferedImage doorClosedImage, doorOpenImage;
-    public Rectangle interactArea;
     public boolean isClosed;
     public int xTile, yTile;
 
@@ -35,11 +34,11 @@ public class Door extends Thing {
         width = GamePanel.tileSize;
         height = GamePanel.tileSize;
 
-        solidArea = new Rectangle(worldX, worldY, width, height);
-        interactArea = new Rectangle(worldX, worldY, width, height + 20);
-
         setDoorImage(type);
         setDoorCoOrds();
+
+        solidArea = new Rectangle(worldX, worldY, width, height);
+        interactArea = new Rectangle(worldX, worldY, width, height + GamePanel.tileSize);
     }
 
     private void setDoorImage(int type){

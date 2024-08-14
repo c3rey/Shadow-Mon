@@ -2,15 +2,14 @@ __CollisionChecker__
 
 Handles all collision events in the game.
 
-| Variable      | Type          | Description                      |
-|---------------|---------------|----------------------------------|
-| world         | World         | The game's current World.        |
-| currentLevel  | Level         | The game's current Level.        |
-| currentMap    | Map           | The current Level's current Map. |
-| player        | Player        | The game's Player.               |
+|   Variable    |     Type      | Description                      |
+|:-------------:|:-------------:|----------------------------------|
+|     world     |     World     | The game's current World.        |
+| currentLevel  |     Level     | The game's current Level.        |
+|  currentMap   |      Map      | The current Level's current Map. |
+|    player     |    Player     | The game's Player.               |
 | objectManager | ObjectManager | The game's ObjectManager.        |
-| doorManager   | DoorManager   | The game's DoorManager.          |
-| world         | World         |                                  |
+|     world     |     World     |                                  |
 \
 \
 \

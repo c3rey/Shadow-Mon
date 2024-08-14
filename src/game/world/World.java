@@ -25,10 +25,10 @@ public class World {
     public UI ui = new UI(this);
     public TileManager tileM = new TileManager(this);
     public LevelStream stream = new LevelStream(this);
-    public ObjectManager objM = new ObjectManager(this, ui);
-    public DoorManager doorM = new DoorManager(this, ui);
+    public ObjectManager objM = new ObjectManager(this);
+    public DoorManager doorM = new DoorManager(this);
     public Level level;
-    ArrayList<Thing> thingArray;
+    public ArrayList<Thing> thingArray;
 
     public World(GamePanel gp){
         this.gp = gp;
@@ -41,10 +41,12 @@ public class World {
     }
 
     public void update(){
+
         objM.updateObjects(player);
         doorM.updateDoors(player);
         player.update();
         ui.update();
+
     }
 
 

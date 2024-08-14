@@ -19,4 +19,5 @@ public class Thing implements Comparable<Thing>{
     public int compareTo(Thing otherThing) {
         return this.worldY - otherThing.worldY;
     }
+
 }

@@ -1,27 +1,29 @@
 package game.thing.door;
 
+import game.world.Level;
 import game.world.World;
 import game.thing.entity.Player;
 import game.UI;
 
-import static game.world.LevelStream.map1;
-import static game.world.LevelStream.map2;
+import static game.world.LevelStream.*;
 
 public class DoorManager {
     World world;
+    Level level;
     UI ui;
     final int currentDoorCount = 1;
     public final Door[] doors = new Door[currentDoorCount];
 
-    public DoorManager(World world, UI ui){
+    public DoorManager(World world){
         this.world = world;
-        this.ui = ui;
+        ui = world.ui;
+        level = world.level;
 
         setDoors();
     }
 
     private void setDoors(){
-        doors[0] = new Door(map1, map2, Door.WOODENDOOR, 8, 4);
+        doors[0] = new Door(map1, map3, Door.WOODENDOOR, 3, 4);
     }
 
     public void updateDoors(Player player){
@@ -29,11 +31,10 @@ public class DoorManager {
         for (Door door : doors){
             door.update();
 
-            boolean interactAreaOverlap = player.interactArea.intersects(door.interactArea);
-            ui.displayInteractPrompt(interactAreaOverlap);
-
-            if (player.isInteracting && interactAreaOverlap){ //when Player presses E, Door is opened
+            if (player.interactsWith(door) && door.isClosed){ //when Player presses E, Door is opened
                 door.isClosed = false;
+            } else if (player.interactsWith(door) && !door.isClosed) {
+                level.goTo(door.exitRoom);
             }
         }
     }

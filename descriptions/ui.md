@@ -2,12 +2,12 @@ __UI__
 
 Updates and draws anything that isn't physically in the [World](world.md), but appears on the screen.
 
-| Variable  | Type             | Description                                           |
-|-----------|------------------|-------------------------------------------------------|
-| world     | World            | The game's World.                                     |
-| player    | Player           | The game's Player.                                    |
+| Variable  |       Type       | Description                                           |
+|:---------:|:----------------:|-------------------------------------------------------|
+|   world   |      World       | The game's World.                                     |
+|  player   |      Player      | The game's Player.                                    |
 | inventory | Player.Inventory | The Player's Inventory.                               |
-| prompts   | Prompt[]         | The array containing all current Prompts in the game. |
+|  prompts  |     Prompt[]     | The array containing all current Prompts in the game. |
 
 \
 \

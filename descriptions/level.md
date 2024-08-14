@@ -3,8 +3,8 @@ __Level__
 A 2-dimensional LinkedList-based structure that contains and connects [Maps](map.md), 
 allowing the [Player](player.md) to traverse through the game.
 
-| Variable   | Type | Description              |
-|------------|------|--------------------------|
+|  Variable  | Type | Description              |
+|:----------:|:----:|--------------------------|
 | currentMap | Map  | The Level's current Map. |
 
 \

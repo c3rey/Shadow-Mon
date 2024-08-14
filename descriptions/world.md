@@ -2,17 +2,17 @@ __World__
 
 Updates and draws all [Things](thing.md) currently in the game as well as the [Tiles](tile.md) and [UI](ui.md).
 
-| Variable   | Type             | Description                                  |
-|------------|------------------|----------------------------------------------|
-| gp         | GamePanel        | The game's Gamepanel.                        |
-| keyH       | KeyHandler       | The game's KeyHandler.                       |
-| player     | Player           | The game's Player.                           |
-| ui         | UI               | The game's UI.                               |
-| tileM      | TileManager      | The game's TileManager.                      |
-| stream     | LevelStream      | The game's LevelStream.                      |
-| objM       | ObjectManager    | The game's ObjectManager.                    |
-| doorM      | DoorManager      | The game's DoorManager.                      |
-| level      | Level            | Currently the game's only Level.             |
+|  Variable  |       Type       | Description                                  |
+|:----------:|:----------------:|----------------------------------------------|
+|     gp     |    GamePanel     | The game's Gamepanel.                        |
+|    keyH    |    KeyHandler    | The game's KeyHandler.                       |
+|   player   |      Player      | The game's Player.                           |
+|     ui     |        UI        | The game's UI.                               |
+|   tileM    |   TileManager    | The game's TileManager.                      |
+|   stream   |   LevelStream    | The game's LevelStream.                      |
+|    objM    |  ObjectManager   | The game's ObjectManager.                    |
+|   doorM    |   DoorManager    | The game's DoorManager.                      |
+|   level    |      Level       | Currently the game's only Level.             |
 | thingArray | ArrayList<Thing> | The array containing all Things in the game. |
 
 \

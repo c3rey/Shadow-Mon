@@ -1,5 +1,7 @@
 package game;
 
+import game.inventory.Inventory;
+import game.thing.Thing;
 import game.world.World;
 import game.thing.entity.Player;
 
@@ -8,11 +10,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class UI {
     World world;
     Player player;
-    Player.Inventory inventory;
+    Inventory inventory;
 
     private final Prompt[] prompts;
 
@@ -27,12 +30,13 @@ public class UI {
     }
 
     public void update(){
+        prompts[Prompt.INTERACT].isActive = checkPrompts(world.thingArray, 0); // checks all Things to determine if interactPrompt should be displayed
         inventory.update();
     }
 
     public void draw(Graphics2D g2){
         displayIntroPrompt();
-        displayPrompts(g2);
+        drawPrompts(g2);
         inventory.draw(g2);
     }
 
@@ -41,13 +45,27 @@ public class UI {
         prompts[1] = new Prompt(Prompt.TRAVERSAL);
     }
 
-    public void displayIntroPrompt() {displayTraversalPrompt(true);}
+    private void displayIntroPrompt() {displayTraversalPrompt(true);}
 
-    public void displayInteractPrompt(boolean condition) {prompts[0].isActive = condition;}
+    private boolean checkPrompts(ArrayList<Thing> thingArray, int index){
+        boolean displayPrompt = false;
+
+
+        if (player.interactArea.intersects(thingArray.get(index).interactArea) && thingArray.get(index).getClass() != Player.class){ //if the Player's interactArea intersects that of the Thing at thingArray.get(index)...
+            displayPrompt = true; //display the interact Prompt
+
+        } else if (index < thingArray.size() - 1) { //if not, and we aren't at the last entry in thingArray...
+            displayPrompt = checkPrompts(thingArray, index + 1); //check the next entry
+        }
+
+        return displayPrompt;
+    }
+
+
 
     public void displayTraversalPrompt(boolean condition) {prompts[1].isActive = condition;}
 
-    public void displayPrompts(Graphics2D g2){
+    public void drawPrompts(Graphics2D g2){
         for(Prompt prompt : prompts){
             if (prompt.isActive){
                 int promptSize = 30;
@@ -87,7 +105,7 @@ public class UI {
                         promptImage = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\prompt\\keyboard-wasd.png.png"));
                 }
             } catch (IOException e) {
-                System.err.println("IOException in setPromptImage");;
+                System.err.println("IOException in setPromptImage");
             }
         }
     }
