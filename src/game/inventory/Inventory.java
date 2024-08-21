@@ -280,18 +280,18 @@ public class Inventory {
             }
 
             private boolean moveIsClear(){
-                boolean moveClear = false;
-                if (keyH.upPressed && currentSlot.rowNum - 1 >= 0){
-                    moveClear = true;
+                boolean moveClear = true;
+                if (keyH.upPressed && currentSlot.rowNum - 1 < 0){
+                    moveClear = false;
                 }
-                if (keyH.downPressed && currentSlot.rowNum + 1 < inventory.maxRows){
-                    moveClear = true;
+                if (keyH.downPressed && currentSlot.rowNum + 1 >= inventory.maxRows){
+                    moveClear = false;
                 }
-                if (keyH.leftPressed && currentSlot.colNum - 1 >= 0){
-                    moveClear = true;
+                if (keyH.leftPressed && currentSlot.colNum - 1 < 0){
+                    moveClear = false;
                 }
-                if (keyH.rightPressed && currentSlot.colNum + 1 < inventory.maxCols){
-                    moveClear = true;
+                if (keyH.rightPressed && currentSlot.colNum + 1 >= inventory.maxCols){
+                    moveClear = false;
                 }
 
                 return moveClear;

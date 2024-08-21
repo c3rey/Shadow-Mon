@@ -19,6 +19,15 @@ public class Player extends Entity {
     public CollisionChecker cChecker;
     public KeyHandler keyH;
 
+    public static final int UP = 1;
+    public static final int DOWN = 2;
+    public static final int LEFT = 3;
+    public static final int RIGHT = 4;
+    public static final int UP_LEFT = 5;
+    public static final int UP_RIGHT = 6;
+    public static final int DOWN_LEFT = 7;
+    public static final int DOWN_RIGHT = 8;
+
     public boolean isDropping;
 
 
@@ -111,7 +120,7 @@ public class Player extends Entity {
             }
 
             //COLLISION
-            collisionOn = cChecker.checkTileCollision() || cChecker.checkForObjects();//collision is turned on if Player collides with either a Tile or a gameObject
+//            collisionOn = cChecker.checkForObjects();//collision is turned on if Player collides with either a Tile or a gameObject
             //cChecker.checkForDoors();
 
             switch (direction){
@@ -137,42 +146,110 @@ public class Player extends Entity {
                 switch (direction){
                     case "up":
                         if (keyH.upPressed){
-                            worldY -= speed;
-
                             if (spriteCount == 0){
                                 image = up2;
                             } else if (spriteCount == 1) {
                                 image = up3;
                             }
+
+                            //diagonal movement
+                            if (keyH.leftPressed){
+                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y - speed, solidArea.width, solidArea.height);
+                                if (cChecker.checkTileCol(nextPlayerPosition, UP_LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
+                                    worldX -= speed;
+                                }
+                            }
+                            if (keyH.rightPressed){
+                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y - speed, solidArea.width, solidArea.height);
+                                if (cChecker.checkTileCol(nextPlayerPosition, UP_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
+                                    worldX += speed;
+                                }
+                            }
+
+                            Rectangle nextPlayerPosition = new Rectangle(solidArea.x, solidArea.y - speed, solidArea.width, solidArea.height);
+                            if (cChecker.checkTileCol(nextPlayerPosition, UP) && cChecker.checkForObjects(nextPlayerPosition)){
+                                worldY -= speed;
+                            }
                         }
                         break;
                     case "down":
                         if (keyH.downPressed){
-                            worldY += speed;
-
                             if (spriteCount == 0){
                                 image = down2;
                             } else if (spriteCount == 1) {
                                 image = down3;
                             }
+
+                            //diagonal movement
+                            if (keyH.leftPressed){
+                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y + speed, solidArea.width, solidArea.height);
+                                if (cChecker.checkTileCol(nextPlayerPosition, DOWN_LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
+                                    worldX -= speed;
+                                }
+                            }
+                            if (keyH.rightPressed){
+                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y + speed, solidArea.width, solidArea.height);
+                                if (cChecker.checkTileCol(nextPlayerPosition, DOWN_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
+                                    worldX += speed;
+                                }
+                            }
+
+                            Rectangle nextPlayerPosition = new Rectangle(solidArea.x, solidArea.y + speed, solidArea.width, solidArea.height);
+                            if (cChecker.checkTileCol(nextPlayerPosition, DOWN) && cChecker.checkForObjects(nextPlayerPosition)){
+                                worldY += speed;
+                            }
                         }
                         break;
                     case "left":
                         if (keyH.leftPressed){
-                            worldX -= speed;
-
                             if (spriteCount == 0){
                                 image = left2;
+                            }
+
+                            //diagonal movement
+                            if (keyH.upPressed){
+                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y - speed, solidArea.width, solidArea.height);
+                                if (cChecker.checkTileCol(nextPlayerPosition, UP_LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
+                                    worldY -= speed;
+                                }
+                            }
+                            if (keyH.downPressed){
+                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y + speed, solidArea.width, solidArea.height);
+                                if (cChecker.checkTileCol(nextPlayerPosition, DOWN_LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
+                                    worldY += speed;
+                                }
+                            }
+
+                            Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y, solidArea.width, solidArea.height);
+                            if (cChecker.checkTileCol(nextPlayerPosition, LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
+                                worldX -= speed;
                             }
                         }
                         break;
                     case "right":
                         if(keyH.rightPressed){
-                            worldX += speed;
-                        }
+                            if (spriteCount == 0){
+                                image = right2;
+                            }
 
-                        if (spriteCount == 0 && keyH.rightPressed){
-                            image = right2;
+                            //diagonal movement
+                            if (keyH.upPressed){
+                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y - speed, solidArea.width, solidArea.height);
+                                if (cChecker.checkTileCol(nextPlayerPosition, UP_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
+                                    worldY -= speed;
+                                }
+                            }
+                            if (keyH.downPressed){
+                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y + speed, solidArea.width, solidArea.height);
+                                if (cChecker.checkTileCol(nextPlayerPosition, DOWN_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
+                                    worldY += speed;
+                                }
+                            }
+
+                            Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y, solidArea.width, solidArea.height);
+                            if (cChecker.checkTileCol(nextPlayerPosition, RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
+                                worldX += speed;
+                            }
                         }
                         break;
                 }
@@ -185,6 +262,8 @@ public class Player extends Entity {
             if (keyH.oPressed && !inventory.inventoryDrawn){
                 inventory.inventoryDrawn = true;
             }
+
+            keyH.ePressed = false; //so that the player only interacts once per button press
 
         }
     }

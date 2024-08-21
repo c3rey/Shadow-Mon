@@ -1,10 +1,15 @@
 package game.world;
 
 
+import game.thing.entity.Player;
+
 public class Level {
     public Map currentMap;
+    public Player player;
 
-    public Level(){}
+    public Level(Player player){
+        this.player = player;
+    }
 
     public void setStartingMap(Map startingMap){
         currentMap = startingMap;
@@ -83,15 +88,23 @@ public class Level {
 
     public void goUp(){
         currentMap = currentMap.up;
+        player.worldX = currentMap.southPlayerX;
+        player.worldY = currentMap.southPlayerY;
     }
     public void goDown(){
         currentMap = currentMap.down;
+        player.worldX = currentMap.northPlayerX;
+        player.worldY = currentMap.northPlayerY;
     }
     public void goLeft(){
         currentMap = currentMap.left;
+        player.worldX = currentMap.eastPlayerX;
+        player.worldY = currentMap.eastPlayerY;
     }
     public void goRight(){
         currentMap = currentMap.right;
+        player.worldX = currentMap.westPlayerX;
+        player.worldY = currentMap.westPlayerY;
     }
     public void goTo(Map map){currentMap = map;}
 

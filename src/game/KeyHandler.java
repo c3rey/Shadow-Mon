@@ -2,11 +2,18 @@ package game;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
 
 public class KeyHandler implements KeyListener {
 
     public boolean upPressed, downPressed, leftPressed, rightPressed, ePressed, oPressed;
+    int mode;
+
+    public static final int PLAYER = 1;
+    public static final int INTERFACE = 2;
+
+    public KeyHandler(){
+        mode = PLAYER;
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -17,27 +24,45 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
         int code = e.getKeyCode();
+        if (mode == PLAYER){
+            if(code == KeyEvent.VK_W){
+                upPressed = true;
+            }
+            if(code == KeyEvent.VK_S) {
+                downPressed = true;
+            }
+            if(code == KeyEvent.VK_A){
+                leftPressed = true;
+            }
+            if(code == KeyEvent.VK_D){
+                rightPressed = true;
+            }
+        }
+
+        if (mode == INTERFACE){
+            if(code == KeyEvent.VK_W){
+                upPressed = true;
+                downPressed = false; leftPressed = false; rightPressed = false;
+            }
+            if(code == KeyEvent.VK_S) {
+                downPressed = true;
+                upPressed = false; leftPressed = false; rightPressed = false;
+            }
+            if(code == KeyEvent.VK_A){
+                leftPressed = true;
+                upPressed = false; downPressed = false; rightPressed = false;
+            }
+            if(code == KeyEvent.VK_D){
+                rightPressed = true;
+                upPressed = false; downPressed = false; leftPressed = false;
+            }
+        }
 
 
-        if(code == KeyEvent.VK_W){
-            upPressed = true;
-            downPressed = false; leftPressed = false; rightPressed = false;
-        }
-        if(code == KeyEvent.VK_S) {
-            downPressed = true;
-            upPressed = false; leftPressed = false; rightPressed = false;
-        }
-        if(code == KeyEvent.VK_A){
-            leftPressed = true;
-            upPressed = false; downPressed = false; rightPressed = false;
-        }
-        if(code == KeyEvent.VK_D){
-            rightPressed = true;
-            upPressed = false; downPressed = false; leftPressed = false;
-        }
         if(code == KeyEvent.VK_E){
             ePressed = true;
         }
+
         if (code == KeyEvent.VK_O){
             oPressed = true;
         }

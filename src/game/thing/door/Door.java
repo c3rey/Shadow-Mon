@@ -64,10 +64,16 @@ public class Door extends Thing {
     void update(){
         if (isClosed){
             image = doorClosedImage;
-            collisionOn = true;
         }else{
             image = doorOpenImage;
-            collisionOn = false;
+        }
+
+        if (level.currentMap != entryMap){
+            solidArea.setSize(0,0);
+            interactArea.setSize(0,0);
+        }else{
+            solidArea = new Rectangle(worldX, worldY, width, height);
+            interactArea = new Rectangle(worldX, worldY, width, height + GamePanel.tileSize);
         }
     }
 }

@@ -23,7 +23,7 @@ public class DoorManager {
     }
 
     private void setDoors(){
-        doors[0] = new Door(map1, map3, Door.WOODENDOOR, 3, 4);
+        doors[0] = new Door(map1, map2, Door.WOODENDOOR, 3, 4);
     }
 
     public void updateDoors(Player player){

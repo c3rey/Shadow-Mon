@@ -8,17 +8,19 @@ import java.io.FileNotFoundException;
 
 public class LevelStream {
 
-    //All levels will eventually be instantiated here
-    public Level level1 = new Level();
-
     World world;
     Player player;
+
+    //All levels will eventually be instantiated here
+    public Level level1;
 
     FileToMapConverter converter = new FileToMapConverter();
 
     public LevelStream(World world) {
         this.world = world;
         player = world.player;
+
+
 
         setMaps();
         setLevel1();
@@ -41,7 +43,8 @@ public class LevelStream {
     }
 
     private void setLevel1(){
-        world.level = level1; // is here in a method because LevelStream is instantiated in Gamepanel before gp.Level
+        level1 = new Level(player);
+        world.level = level1;
 
         level1.setStartingMap(map1);
         level1.addRight(map1, map2);

@@ -8,23 +8,10 @@ import java.awt.image.BufferedImage;
 
 
 public class TileManager {
-    int currentTileCount = 4; //UPDATE MANUALLY AS NEW TILES ARE ADDED
-    public Tile[] tileArray = new Tile[currentTileCount];
     World world;
-
-    private void setTiles() {
-        tileArray[0] = new Tile(0);
-
-        tileArray[1] = new Tile(1);
-
-        tileArray[2] = new Tile( 2);
-
-        tileArray[3] = new Tile(3);
-    }
 
     public TileManager(World world) {
         this.world = world;
-        setTiles();
     }
 
     public void draw(Graphics2D g2, Tile[][] tileArray) {
