@@ -9,7 +9,7 @@ Handles all collision events in the game.
 |  currentMap   |      Map      | The current Level's current Map. |
 |    player     |    Player     | The game's Player.               |
 | objectManager | ObjectManager | The game's ObjectManager.        |
-|     world     |     World     |                                  |
+|     world     |     World     | The game's World.                |
 \
 \
 \
