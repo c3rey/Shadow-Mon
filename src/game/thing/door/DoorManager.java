@@ -3,27 +3,25 @@ package game.thing.door;
 import game.world.Level;
 import game.world.World;
 import game.thing.entity.Player;
-import game.UI;
+import UI.UI;
 
 import static game.world.LevelStream.*;
 
 public class DoorManager {
-    World world;
     Level level;
     UI ui;
-    final int currentDoorCount = 1;
-    public final Door[] doors = new Door[currentDoorCount];
+    final static int currentDoorCount = 1;
+    public static final Door[] doors = new Door[currentDoorCount];
 
-    public DoorManager(World world){
-        this.world = world;
-        ui = world.ui;
-        level = world.level;
+    public DoorManager(){
+        ui = World.ui;
+        level = World.level;
 
         setDoors();
     }
 
     private void setDoors(){
-        doors[0] = new Door(map1, map2, Door.WOODENDOOR, 3, 4);
+        doors[0] = new LockedDoor(map1, map2, Door.WOODENDOOR, 3, 4, 1);
     }
 
     public void updateDoors(Player player){
@@ -31,10 +29,29 @@ public class DoorManager {
         for (Door door : doors){
             door.update();
 
-            if (player.interactsWith(door) && door.isClosed){ //when Player presses E, Door is opened
-                door.isClosed = false;
-            } else if (player.interactsWith(door) && !door.isClosed) {
-                level.goTo(door.exitRoom);
+            if (player.interactsWith(door)){
+                if (door.isClosed){ //If the door is closed...
+
+                    if (door instanceof LockedDoor && !((LockedDoor) door).isLocked) { //If the door is a LockedDoor and is unlocked...
+                        door.isClosed = false;
+
+                    }
+                    else if (door instanceof LockedDoor && player.hasKeyFor((LockedDoor) door)){ //If the door is a LockedDoor and the player has the key...
+                        ((LockedDoor) door).isLocked = false;
+                        System.out.println("I unlocked it!");
+
+                    }
+                    else if (door instanceof LockedDoor){ //If the door is locked and the player doesn't have the key...
+                        System.out.println("it's locked!");
+
+                    }
+                    else if (door.getClass() == Door.class){ //If the door is a normal Door...
+                        door.isClosed = false; //Door opens
+
+                    }
+                }else{ //If the door is open...
+                    level.goTo(door.exitRoom); //Player is taken to the door's exitRoom
+                }
             }
         }
     }

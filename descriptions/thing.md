@@ -1,4 +1,4 @@
-__Thing__
+## Thing
 
 A Thing is anything that's on the current [Map](map.md) (excluding the map itself). All things must have
 a worldX and worldY value, a length and width value, a solidArea, and an image.

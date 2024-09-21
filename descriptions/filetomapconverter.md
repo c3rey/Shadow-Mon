@@ -1,4 +1,4 @@
-__FileToMapConverter__
+## FileToMapConverter
 
 Converts .txt files to [Maps](map.md).
 

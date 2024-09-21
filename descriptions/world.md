@@ -1,6 +1,7 @@
-__World__
+## World
 
 Updates and draws all [Things](thing.md) currently in the game as well as the [Tiles](tile.md) and [UI](ui.md).
+
 
 |  Variable  |       Type       | Description                                  |
 |:----------:|:----------------:|----------------------------------------------|

@@ -1,4 +1,4 @@
-__Tile__
+## Tile
 
 A singular 48x48 block on the Map.
 

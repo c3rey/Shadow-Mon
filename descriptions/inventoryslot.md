@@ -1,9 +1,10 @@
-__InventorySlot__
+## InventorySlot
 
 A single slot in an [Inventory](inventory.md). Can contain a [RetrievableGameObject](retrievablegameobject.md). Iterated over via the [InventoryIterator](inventoryiterator.md)
 
 |                   Variable                   |         Type          | Description                                                                                                                                                  |
 |:--------------------------------------------:|:---------------------:|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|                   options                    |   ArrayList<Option>   | The options available to the InventorySlot's RetrievableGameObject.                                                                                          |
 | image<br/>slotImage<br/>highlightedSlotImage |     BufferedImage     | The image to be drawn.<br/>The default image of the InventorySlot.<br/>The image of the InventorySlot when highlighted.                                      |
 |                  inventory                   |       Inventory       | The Inventory the slots belong to.                                                                                                                           |
 |                currentObject                 | RetrievableGameObject | The RetrievableGameObject contained within the InventorySlot.                                                                                                |

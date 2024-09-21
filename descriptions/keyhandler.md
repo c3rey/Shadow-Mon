@@ -1,4 +1,4 @@
-__KeyHandler__
+## KeyHandler
 
 Used to handle player input from a keyboard. Designed so that the player can only move in one direction at a time.
 

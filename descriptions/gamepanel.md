@@ -1,4 +1,4 @@
-__Gamepanel__
+## Gamepanel
 
 This is where the game is run, updated, and drawn; World calls its update() and draw() methods here. 
 KeyHandler is also added to this panel for player control.
@@ -45,3 +45,8 @@ World's update method is called here.
 __paintComponent(Graphics)__
 
 World's draw method is called here.
+
+\
+__setFont()__
+
+Sets the font used for text.

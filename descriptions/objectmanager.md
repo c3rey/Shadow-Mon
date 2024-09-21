@@ -1,4 +1,4 @@
-__ObjectManager__
+## ObjectManager
 
 Sets and updates all [GameObjects](gameobject.md) and [RetrievableGameObjects](retrievablegameobject.md).
 
@@ -8,19 +8,23 @@ Sets and updates all [GameObjects](gameobject.md) and [RetrievableGameObjects](r
 |             ui              |        UI        | The game's UI.                                                                                   |
 |           player            |      Player      | The game's Player.                                                                               |
 |          cChecker           | CollisionChecker | The game's CollisionChecker.                                                                     |
-|       currentObjCount       |       int        | The current number of GameObjects in the game, meant to manually be set as new objects are added |
+|       CURRENTOBJCOUNT       |       int        | The current number of GameObjects in the game, meant to manually be set as new objects are added |
 |          objArray           |   GameObject[]   | The array that contains all GameObjects and RetrievableGameObjects                               |
 | spriteCount<br/>updateCount |       int        | Used to update RetrievableGameObjects in update()                                                |
 
 \
 \
 \
-__setObjects()__
+__setObjectArray()__
 
 Instantiates GameObjects within objArray
 
 \
-\
+__setObjects()__
+
+Sets the images, width and height, solidArea and interactArea, and other class specifics of each object
+in objArray.
+
 \
 __updateObjects(Player)__
 

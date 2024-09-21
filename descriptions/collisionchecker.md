@@ -1,4 +1,4 @@
-__CollisionChecker__
+## CollisionChecker
 
 Handles all collision events in the game.
 

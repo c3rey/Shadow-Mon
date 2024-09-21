@@ -1,10 +1,9 @@
-__DoorManager__
+## DoorManager
 
 Sets and updates all [Doors](door.md).
 
 |     Variable     |  Type  | Description                                                                                 |
 |:----------------:|:------:|---------------------------------------------------------------------------------------------|
-|      world       | World  | The game's World.                                                                           |
 |      level       | Level  | The game's Level.                                                                           |
 |        ui        |   UI   | The game's UI.                                                                              |
 | currentDoorCount |  int   | The current number of Doors in the game, to be manually incremented as new Doors are added. |
@@ -18,8 +17,8 @@ __setDoors()__
 Sets the Doors in doors[].
 
 \
-__updateDoors(Player)__
+__updateDoors(Player player)__
 
 1. Updates doors
-2. Calls upon the UI to display the interact prompt if the Player's interactArea overlaps that of any doors
-3. Opens a Door if the Player is close enough to it and interacts
+2. Calls player.interactsWith() on each door
+3. Opens the door or sends Player through the door depending on the door and whether the [Player](player.md) has the right [Key](key.md) or not

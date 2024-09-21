@@ -1,4 +1,4 @@
-__Level__
+## Level
 
 A 2-dimensional LinkedList-based structure that contains and connects [Maps](map.md), 
 allowing the [Player](player.md) to traverse through the game.

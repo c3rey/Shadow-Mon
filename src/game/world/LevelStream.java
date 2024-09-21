@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 
 public class LevelStream {
 
-    World world;
     Player player;
 
     //All levels will eventually be instantiated here
@@ -16,9 +15,8 @@ public class LevelStream {
 
     FileToMapConverter converter = new FileToMapConverter();
 
-    public LevelStream(World world) {
-        this.world = world;
-        player = world.player;
+    public LevelStream() {;
+        player = World.player;
 
 
 
@@ -44,7 +42,7 @@ public class LevelStream {
 
     private void setLevel1(){
         level1 = new Level(player);
-        world.level = level1;
+        World.level = level1;
 
         level1.setStartingMap(map1);
         level1.addRight(map1, map2);

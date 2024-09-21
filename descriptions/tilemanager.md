@@ -1,4 +1,4 @@
-__TileManager__
+## TileManager
 
 Draws the [Tiles](tile.md) of a [Map](map.md).
 

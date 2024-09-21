@@ -1,4 +1,4 @@
-__UI__
+## UI
 
 Updates and draws anything that isn't physically in the [World](world.md), but appears on the screen.
 

@@ -1,4 +1,4 @@
-__GameObject__
+## GameObject
 
 An inanimate [Thing](thing.md) placed in a [Map](map.md).
 

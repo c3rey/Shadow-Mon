@@ -1,4 +1,4 @@
-__LevelStream__
+## LevelStream
 
 Sets all [Levels](level.md) and [Maps](map.md) and progresses through the Levels as the [Player](player.md) completes them
 

@@ -5,8 +5,8 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, ePressed, oPressed;
-    int mode;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, playerEPressed, interfaceEPressed, iPressed, backspacePressed, enterPressed;
+    public int mode;
 
     public static final int PLAYER = 1;
     public static final int INTERFACE = 2;
@@ -16,9 +16,7 @@ public class KeyHandler implements KeyListener {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -36,6 +34,9 @@ public class KeyHandler implements KeyListener {
             }
             if(code == KeyEvent.VK_D){
                 rightPressed = true;
+            }
+            if(code == KeyEvent.VK_E){
+                playerEPressed = true;
             }
         }
 
@@ -56,15 +57,20 @@ public class KeyHandler implements KeyListener {
                 rightPressed = true;
                 upPressed = false; downPressed = false; leftPressed = false;
             }
+            if (code == KeyEvent.VK_BACK_SPACE){
+                backspacePressed = true;
+            }
+            if(code == KeyEvent.VK_E){
+                interfaceEPressed = true;
+            }
+            if (code == KeyEvent.VK_ENTER){
+                enterPressed = true;
+            }
         }
 
 
-        if(code == KeyEvent.VK_E){
-            ePressed = true;
-        }
-
-        if (code == KeyEvent.VK_O){
-            oPressed = true;
+        if (code == KeyEvent.VK_I){
+            iPressed = true;
         }
 
     }
@@ -87,10 +93,17 @@ public class KeyHandler implements KeyListener {
             rightPressed = false;
         }
         if(code == KeyEvent.VK_E){
-            ePressed = false;
+            playerEPressed = false;
+            interfaceEPressed = false;
         }
-        if (code == KeyEvent.VK_O){
-            oPressed = false;
+        if (code == KeyEvent.VK_I){
+            iPressed = false;
+        }
+        if (code == KeyEvent.VK_BACK_SPACE){
+            backspacePressed = false;
+        }
+        if (code == KeyEvent.VK_ENTER){
+            enterPressed = false;
         }
     }
 }

@@ -8,11 +8,6 @@ import java.awt.image.BufferedImage;
 
 
 public class TileManager {
-    World world;
-
-    public TileManager(World world) {
-        this.world = world;
-    }
 
     public void draw(Graphics2D g2, Tile[][] tileArray) {
 

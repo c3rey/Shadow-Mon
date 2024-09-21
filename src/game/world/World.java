@@ -1,12 +1,14 @@
 package game.world;
 
 import game.GamePanel;
+import game.InteractManager;
 import game.KeyHandler;
 import game.thing.entity.Player;
 import game.thing.object.GameObject;
+import game.thing.object.Key;
 import game.thing.object.ObjectManager;
 import game.thing.object.RetrievableGameObject;
-import game.UI;
+import UI.UI;
 import game.thing.door.Door;
 import game.thing.door.DoorManager;
 import game.thing.Thing;
@@ -20,15 +22,20 @@ import java.util.Collections;
 public class World {
 
     GamePanel gp;
-    public KeyHandler keyH = new KeyHandler();
-    public Player player= new Player(this,keyH);
-    public UI ui = new UI(this);
-    public TileManager tileM = new TileManager(this);
-    public LevelStream stream = new LevelStream(this);
-    public ObjectManager objM = new ObjectManager(this);
-    public DoorManager doorM = new DoorManager(this);
-    public Level level;
-    public ArrayList<Thing> thingArray;
+
+    public static KeyHandler keyH = new KeyHandler();
+    public static Player player= new Player();
+
+    public static UI ui = new UI();
+
+    public static TileManager tileM = new TileManager();
+    public static LevelStream stream = new LevelStream();
+    public static ObjectManager objM = new ObjectManager();
+    public static DoorManager doorM = new DoorManager();
+
+    public static Level level;
+    public static ArrayList<Thing> thingArray;
+    public static InteractManager intrM = new InteractManager();
 
     public World(GamePanel gp){
         this.gp = gp;
@@ -36,8 +43,8 @@ public class World {
         thingArray = new ArrayList<>();
 
         thingArray.add(player);
-        thingArray.addAll(Arrays.asList(objM.objArray));
-        thingArray.addAll(Arrays.asList(doorM.doors));
+        thingArray.addAll(Arrays.asList(ObjectManager.objArray));
+        thingArray.addAll(Arrays.asList(DoorManager.doors));
     }
 
     public void update(){
@@ -63,13 +70,13 @@ public class World {
                    thing.draw(g2);
                }
 
-           }else if (thing.getClass() == RetrievableGameObject.class){
+           }else if (thing instanceof RetrievableGameObject){
 
                if (!((RetrievableGameObject) thing).retrieved && ((RetrievableGameObject) thing).map == level.currentMap){
                    thing.draw(g2);
                }
 
-           }else if (thing.getClass() == Door.class) {
+           }else if (thing instanceof Door) {
 
                if (((Door) thing).entryMap == level.currentMap){
                    thing.draw(g2);

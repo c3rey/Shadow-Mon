@@ -1,8 +1,9 @@
 package game.thing.entity;
 
 import game.*;
-import game.inventory.Inventory;
+import UI.inventory.PlayerInventory;
 import game.thing.Thing;
+import game.thing.door.LockedDoor;
 import game.world.World;
 import game.thing.object.RetrievableGameObject;
 
@@ -13,9 +14,8 @@ import java.io.IOException;
 
 
 public class Player extends Entity {
-    public GamePanel gp;
     public World world;
-    public Inventory inventory;
+    public PlayerInventory inventory;
     public CollisionChecker cChecker;
     public KeyHandler keyH;
 
@@ -28,15 +28,12 @@ public class Player extends Entity {
     public static final int DOWN_LEFT = 7;
     public static final int DOWN_RIGHT = 8;
 
-    public boolean isDropping;
 
-
-    public Player(World world, KeyHandler keyH) { //constructor
-        this.world = world;
-        this.keyH = keyH;
+    public Player() { //constructor
+        keyH = World.keyH;
 
         cChecker = new CollisionChecker(this);
-        inventory = new Inventory(this);
+        inventory = new PlayerInventory(this);
 
         setDefaultValues();
         setPlayerImage();
@@ -83,12 +80,12 @@ public class Player extends Entity {
         inventory.add(object);
     }
 
-    public void drop(RetrievableGameObject object, int dropDistance){
-        inventory.drop(object);
+    public boolean interactsWith(Thing thing){
+        return interactArea.intersects(thing.interactArea) && keyH.playerEPressed;
     }
 
-    public boolean interactsWith(Thing thing){
-        return interactArea.intersects(thing.interactArea) && keyH.ePressed;
+    public boolean hasKeyFor(LockedDoor door){
+        return inventory.hasKeyFor(door);
     }
 
     public void update(){ //update method to be called in World.update()
@@ -119,9 +116,6 @@ public class Player extends Entity {
                 direction = "right";
             }
 
-            //COLLISION
-//            collisionOn = cChecker.checkForObjects();//collision is turned on if Player collides with either a Tile or a gameObject
-            //cChecker.checkForDoors();
 
             switch (direction){
                 case "up":
@@ -206,20 +200,6 @@ public class Player extends Entity {
                                 image = left2;
                             }
 
-                            //diagonal movement
-                            if (keyH.upPressed){
-                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y - speed, solidArea.width, solidArea.height);
-                                if (cChecker.checkTileCol(nextPlayerPosition, UP_LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
-                                    worldY -= speed;
-                                }
-                            }
-                            if (keyH.downPressed){
-                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y + speed, solidArea.width, solidArea.height);
-                                if (cChecker.checkTileCol(nextPlayerPosition, DOWN_LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
-                                    worldY += speed;
-                                }
-                            }
-
                             Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y, solidArea.width, solidArea.height);
                             if (cChecker.checkTileCol(nextPlayerPosition, LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
                                 worldX -= speed;
@@ -230,20 +210,6 @@ public class Player extends Entity {
                         if(keyH.rightPressed){
                             if (spriteCount == 0){
                                 image = right2;
-                            }
-
-                            //diagonal movement
-                            if (keyH.upPressed){
-                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y - speed, solidArea.width, solidArea.height);
-                                if (cChecker.checkTileCol(nextPlayerPosition, UP_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
-                                    worldY -= speed;
-                                }
-                            }
-                            if (keyH.downPressed){
-                                Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y + speed, solidArea.width, solidArea.height);
-                                if (cChecker.checkTileCol(nextPlayerPosition, DOWN_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
-                                    worldY += speed;
-                                }
                             }
 
                             Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y, solidArea.width, solidArea.height);
@@ -259,11 +225,13 @@ public class Player extends Entity {
             solidArea = new Rectangle((worldX + 14), (worldY + 28), (GamePanel.tileSize - 28), (GamePanel.tileSize - 32)); //dimensions of SolidArea
             interactArea = new Rectangle(worldX, worldY, GamePanel.tileSize, GamePanel.tileSize);
 
-            if (keyH.oPressed && !inventory.inventoryDrawn){
+            if (keyH.iPressed && !inventory.inventoryDrawn){
                 inventory.inventoryDrawn = true;
+                keyH.mode = KeyHandler.INTERFACE;
+
             }
 
-            keyH.ePressed = false; //so that the player only interacts once per button press
+            keyH.playerEPressed = false; //so that the player only interacts once per button press
 
         }
     }

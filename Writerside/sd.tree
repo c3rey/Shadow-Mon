@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE instance-profile
+        SYSTEM "https://resources.jetbrains.com/writerside/1.0/product-profile.dtd">
+
+<instance-profile id="sd"
+                 name="shadowmon descriptions" start-page="collisionchecker.md">
+
+    <toc-element topic="Reference.md"/>
+    <toc-element topic="world.md"/>
+    <toc-element topic="ui.md"/>
+    <toc-element topic="tilemanager.md"/>
+    <toc-element topic="tile.md"/>
+    <toc-element topic="thing.md"/>
+    <toc-element topic="retrievablegameobject.md"/>
+    <toc-element topic="prompt.md"/>
+    <toc-element topic="player.md"/>
+    <toc-element topic="option.md"/>
+    <toc-element topic="objectmanager.md"/>
+    <toc-element topic="map.md"/>
+    <toc-element topic="levelstream.md"/>
+    <toc-element topic="level.md"/>
+    <toc-element topic="keyhandler.md"/>
+    <toc-element topic="inventoryslot.md"/>
+    <toc-element topic="inventoryiterator.md"/>
+    <toc-element topic="inventory.md"/>
+    <toc-element topic="gamepanel.md"/>
+    <toc-element topic="gameobject.md"/>
+    <toc-element topic="filetomapconverter.md"/>
+    <toc-element topic="entity.md"/>
+    <toc-element topic="doormanager.md"/>
+    <toc-element topic="door.md"/>
+    <toc-element topic="collisionchecker.md"/>
+</instance-profile>

@@ -1,4 +1,4 @@
-__Door__
+## Door
 
 A [Thing](thing.md) that takes the [Player](player.md) from one map to another when interacted with.
 
@@ -13,9 +13,9 @@ A [Thing](thing.md) that takes the [Player](player.md) from one map to another w
 \
 \
 \
-__setDoorImage(int)__
+__setDoorImage(int type)__
 
-Sets the DoorOpenImage and Door ClosedImage for each door based on the int type passed as an argument.
+Sets the doorOpenImage and doorClosedImage for each door based on the int type passed as an argument.
 
 \
 __setDoorCoOrds()__

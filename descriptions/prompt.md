@@ -1,4 +1,4 @@
-__Prompt__
+## Prompt
 
 An image drawn on the screen to communicate game controls or the ability to interact to a player.
 

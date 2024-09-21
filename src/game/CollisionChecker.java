@@ -24,7 +24,7 @@ public class CollisionChecker {
     } //constructor
 
     public boolean checkTileCol(Rectangle nextPlayerPosition, int direction){
-        currentLevel = world.level;
+        currentLevel = World.level;
         currentMap = currentLevel.currentMap;
 
         boolean collisionOn = false;
@@ -204,10 +204,10 @@ public class CollisionChecker {
 
 
     public boolean checkForObjects(Rectangle nextPlayerPosition){ //checkObject(player, gameObject) for every gameObject in ObjectManager.objArray
-        objectManager = world.objM;
+        objectManager = World.objM;
         boolean collisionOn = false;
 
-        for (GameObject object : objectManager.objArray){
+        for (GameObject object : ObjectManager.objArray){
             if (checkObject(nextPlayerPosition, object)) { //if any of the checkObject() calls returns true, collision is turned on
                 collisionOn = true;
             }

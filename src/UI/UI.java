@@ -1,39 +1,35 @@
-package game;
+package UI;
 
-import game.inventory.Inventory;
+import game.GamePanel;
+import UI.inventory.Inventory;
 import game.thing.Thing;
 import game.world.World;
 import game.thing.entity.Player;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class UI {
-    World world;
     Player player;
     Inventory inventory;
 
-    public static final int PLAYER = 1;
-    public static final int INTERFACE = 2;
-
     private final Prompt[] prompts;
 
-    public UI(World world){
-        this.world = world;
-        player = world.player;
-        inventory = world.player.inventory;
+    public UI(){
+        player = World.player;
+        inventory = World.player.inventory;
 
         int currentPromptNumber = 2;
         prompts = new Prompt[currentPromptNumber];
+
         setPrompts();
     }
 
     public void update(){
-        prompts[Prompt.INTERACT].isActive = checkPrompts(world.thingArray, 0); // checks all Things to determine if interactPrompt should be displayed
+        prompts[Prompt.INTERACT].isActive = checkPrompts(World.thingArray, 0);
+            // checks all Things to determine if interactPrompt should be displayed
         inventory.update();
     }
 
@@ -42,6 +38,9 @@ public class UI {
         drawPrompts(g2);
         inventory.draw(g2);
     }
+
+
+
 
     private void setPrompts(){
         prompts[0] = new Prompt(Prompt.INTERACT);
@@ -65,10 +64,10 @@ public class UI {
     }
 
 
+    private void displayTraversalPrompt(boolean condition) {prompts[1].isActive = condition;}
 
-    public void displayTraversalPrompt(boolean condition) {prompts[1].isActive = condition;}
 
-    public void drawPrompts(Graphics2D g2){
+    private void drawPrompts(Graphics2D g2){
         for(Prompt prompt : prompts){
             if (prompt.isActive){
                 int promptSize = 30;
@@ -84,32 +83,4 @@ public class UI {
         }
     }
 
-    public static class Prompt {
-        BufferedImage promptImage;
-        int type;
-        public boolean isActive;
-
-        public static final int INTERACT = 0;
-        public static final int TRAVERSAL = 1;
-
-
-        private Prompt(int type){
-            this.type = type;
-            setPromptImage();
-        }
-
-        private void setPromptImage(){ //sets prompt image based on objectNum
-            try {
-                switch (type){
-                    case INTERACT:
-                        promptImage = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\prompt\\keyboard-e.png"));
-                        break;
-                    case TRAVERSAL:
-                        promptImage = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\game\\prompt\\keyboard-wasd.png.png"));
-                }
-            } catch (IOException e) {
-                System.err.println("IOException in setPromptImage");
-            }
-        }
-    }
 }

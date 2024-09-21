@@ -1,4 +1,4 @@
-__Map__
+## Map
 
 The background that the [Player](player.md) exists in.
 

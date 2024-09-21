@@ -1,9 +1,14 @@
 package game;
 
+import game.KeyHandler;
 import game.world.World;
 
 import javax.swing.JPanel;
 import java.awt.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable{
 
@@ -19,12 +24,15 @@ public class GamePanel extends JPanel implements Runnable{
 
     public static final int FPS = 60;
 
+    public static Font gameFont;
+
     KeyHandler keyH;
     Thread gameThread;
     World world = new World(this);
 
     public GamePanel() {
-        keyH = world.keyH;
+        keyH = World.keyH;
+        setFont();
 
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
@@ -78,10 +86,21 @@ public class GamePanel extends JPanel implements Runnable{
 
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        g2.setFont(gameFont);
 
         world.draw(g2);
 
         g2.dispose();
+    }
+
+    private void setFont(){
+        try (FileInputStream inputStream = new FileInputStream(
+                "C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\font\\ui-font.ttf")){
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            gameFont = gameFont.deriveFont(6f);
+        } catch (IOException | FontFormatException e) {
+            System.err.println(e.getClass() + "in GamePanel");
+        }
     }
 
 
