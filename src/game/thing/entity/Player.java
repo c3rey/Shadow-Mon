@@ -18,6 +18,7 @@ public class Player extends Entity {
     public PlayerInventory inventory;
     public CollisionChecker cChecker;
     public KeyHandler keyH;
+    public boolean isWalking = false;
 
     public static final int UP = 1;
     public static final int DOWN = 2;
@@ -88,9 +89,10 @@ public class Player extends Entity {
         return inventory.hasKeyFor(door);
     }
 
+
     public void update(){ //update method to be called in World.update()
         if (!inventory.inventoryDrawn){
-
+            isWalking = false;
 
             //used to create Player walking animation
             updateCount++; //is incremented every time update() is called, therefore 60 times a second
@@ -151,18 +153,21 @@ public class Player extends Entity {
                                 Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y - speed, solidArea.width, solidArea.height);
                                 if (cChecker.checkTileCol(nextPlayerPosition, UP_LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
                                     worldX -= speed;
+                                    isWalking = true;
                                 }
                             }
                             if (keyH.rightPressed){
                                 Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y - speed, solidArea.width, solidArea.height);
                                 if (cChecker.checkTileCol(nextPlayerPosition, UP_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
                                     worldX += speed;
+                                    isWalking = true;
                                 }
                             }
 
                             Rectangle nextPlayerPosition = new Rectangle(solidArea.x, solidArea.y - speed, solidArea.width, solidArea.height);
                             if (cChecker.checkTileCol(nextPlayerPosition, UP) && cChecker.checkForObjects(nextPlayerPosition)){
                                 worldY -= speed;
+                                isWalking = true;
                             }
                         }
                         break;
@@ -179,18 +184,21 @@ public class Player extends Entity {
                                 Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y + speed, solidArea.width, solidArea.height);
                                 if (cChecker.checkTileCol(nextPlayerPosition, DOWN_LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
                                     worldX -= speed;
+                                    isWalking = true;
                                 }
                             }
                             if (keyH.rightPressed){
                                 Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y + speed, solidArea.width, solidArea.height);
                                 if (cChecker.checkTileCol(nextPlayerPosition, DOWN_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
                                     worldX += speed;
+                                    isWalking = true;
                                 }
                             }
 
                             Rectangle nextPlayerPosition = new Rectangle(solidArea.x, solidArea.y + speed, solidArea.width, solidArea.height);
                             if (cChecker.checkTileCol(nextPlayerPosition, DOWN) && cChecker.checkForObjects(nextPlayerPosition)){
                                 worldY += speed;
+                                isWalking = true;
                             }
                         }
                         break;
@@ -203,6 +211,7 @@ public class Player extends Entity {
                             Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y, solidArea.width, solidArea.height);
                             if (cChecker.checkTileCol(nextPlayerPosition, LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
                                 worldX -= speed;
+                                isWalking = true;
                             }
                         }
                         break;
@@ -215,10 +224,12 @@ public class Player extends Entity {
                             Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y, solidArea.width, solidArea.height);
                             if (cChecker.checkTileCol(nextPlayerPosition, RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
                                 worldX += speed;
+                                isWalking = true;
                             }
                         }
                         break;
                 }
+
             }
 
             //SOLIDAREA AND INTERACTAREA

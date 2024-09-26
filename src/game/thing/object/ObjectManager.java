@@ -1,4 +1,6 @@
 package game.thing.object;
+import SFX.Sound;
+import game.GamePanel;
 import game.world.World;
 import game.thing.entity.Player;
 import UI.UI;
@@ -95,6 +97,7 @@ public class ObjectManager {
 
                 //and checks whether the player has gotten close enough to the game.object to interact with it
                 if (player.interactsWith(gameObject)) {
+                    World.sound.playObjectRetrieved();
                     player.pickUp((RetrievableGameObject) gameObject);
                 }
 

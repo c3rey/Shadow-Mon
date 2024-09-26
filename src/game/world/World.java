@@ -1,5 +1,6 @@
 package game.world;
 
+import SFX.Sound;
 import game.GamePanel;
 import game.InteractManager;
 import game.KeyHandler;
@@ -36,6 +37,7 @@ public class World {
     public static Level level;
     public static ArrayList<Thing> thingArray;
     public static InteractManager intrM = new InteractManager();
+    public static Sound sound = new Sound();
 
     public World(GamePanel gp){
         this.gp = gp;
@@ -53,6 +55,7 @@ public class World {
         doorM.updateDoors(player);
         player.update();
         ui.update();
+        sound.update();
 
     }
 

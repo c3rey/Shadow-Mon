@@ -21,7 +21,7 @@ Updates and draws all [Things](thing.md) currently in the game as well as the [T
 \
 __update()__
 
-Calls the update methods in objM, doorM, player, and UI.
+Calls the update methods in objM, doorM, player, UI, and sound.
 
 \
 __draw(Graphics2D)__

@@ -2,6 +2,7 @@ package game.thing.door;
 
 import game.thing.object.Key;
 import game.world.Map;
+import game.world.World;
 
 public class LockedDoor extends Door{
 
@@ -15,10 +16,15 @@ public class LockedDoor extends Door{
 
     public boolean tryKey(Key key){
         if (key.keyCode == keyCode){
-            isLocked = false;
+            unlock();
             return true;
         }else{
             return false;
         }
+    }
+
+    public void unlock(){
+        isLocked = false;
+        World.sound.playDoorUnlock();
     }
 }

@@ -2,13 +2,13 @@
 
 The [Entity](entity.md) representing the player of the game. Responds to key input via [KeyHandler](keyhandler.md).
 
-|  Variable  |       Type       | Description                                                                                                |
-|:----------:|:----------------:|------------------------------------------------------------------------------------------------------------|
-|   world    |      World       | The game's World.                                                                                          |
-| inventory  | PlayerInventory  | The player's Inventory.                                                                                    |
-|  cChecker  | CollisionChecker | The game's CollisionChecker.                                                                               |
-|    keyH    |    KeyHandler    | The Player's KeyHandler                                                                                    |
-
+| Variable  |       Type       | Description                                     |
+|:---------:|:----------------:|-------------------------------------------------|
+|   world   |      World       | The game's World.                               |
+| inventory | PlayerInventory  | The player's Inventory.                         |
+| cChecker  | CollisionChecker | The game's CollisionChecker.                    |
+|   keyH    |    KeyHandler    | The Player's KeyHandler                         |
+| isWalking |     boolean      | Whether the Player is currently walking or not. |
 \
 \
 \

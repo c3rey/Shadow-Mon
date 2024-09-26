@@ -1,5 +1,6 @@
 package game;
 
+import SFX.Sound;
 import game.thing.door.Door;
 import game.thing.door.DoorManager;
 import game.thing.door.LockedDoor;
@@ -7,8 +8,17 @@ import game.thing.object.Key;
 import game.thing.object.RetrievableGameObject;
 import game.world.World;
 
+import javax.sound.sampled.Clip;
+
 
 public class InteractManager {
+
+
+    public void update(){
+
+    }
+
+
 
     public void use(RetrievableGameObject object){
         if (object instanceof Key){

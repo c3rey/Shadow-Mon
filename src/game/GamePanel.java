@@ -1,13 +1,10 @@
 package game;
 
-import game.KeyHandler;
 import game.world.World;
 
 import javax.swing.JPanel;
 import java.awt.*;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable{

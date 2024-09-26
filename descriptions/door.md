@@ -26,3 +26,8 @@ Sets the Door's worldX and worldY based on the Tile's xTile and yTile
 __update()__
 
 When called, sets image to either DoorClosedImage or DoorOpeningImage based on whether isClosed is true or false.
+
+\
+__open()__
+
+Sets isClosed to false and plays a door opening sound effect.

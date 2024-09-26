@@ -33,24 +33,25 @@ public class DoorManager {
                 if (door.isClosed){ //If the door is closed...
 
                     if (door instanceof LockedDoor && !((LockedDoor) door).isLocked) { //If the door is a LockedDoor and is unlocked...
-                        door.isClosed = false;
+                        door.open();
 
                     }
                     else if (door instanceof LockedDoor && player.hasKeyFor((LockedDoor) door)){ //If the door is a LockedDoor and the player has the key...
-                        ((LockedDoor) door).isLocked = false;
+                        ((LockedDoor) door).unlock();
                         System.out.println("I unlocked it!");
 
                     }
                     else if (door instanceof LockedDoor){ //If the door is locked and the player doesn't have the key...
+                        World.sound.playDoorLocked();
                         System.out.println("it's locked!");
 
                     }
                     else if (door.getClass() == Door.class){ //If the door is a normal Door...
-                        door.isClosed = false; //Door opens
+                        door.open(); //Door opens
 
                     }
                 }else{ //If the door is open...
-                    level.goTo(door.exitRoom); //Player is taken to the door's exitRoom
+                    level.goTo(door.exitMap); //Player is taken to the door's exitMap
                 }
             }
         }
