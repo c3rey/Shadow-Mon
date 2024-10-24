@@ -51,9 +51,15 @@ public class UI {
 
     private boolean checkPrompts(ArrayList<Thing> thingArray, int index){
         boolean displayPrompt = false;
+        Thing currentThing = thingArray.get(index);
 
 
-        if (player.interactArea.intersects(thingArray.get(index).interactArea) && thingArray.get(index).getClass() != Player.class){ //if the Player's interactArea intersects that of the Thing at thingArray.get(index)...
+        if (player.interactArea.intersects(currentThing.interactArea) //if the Player's interactArea intersects that of the Thing at thingArray.get(index)...
+                &&
+                currentThing.getClass() != Player.class //if the Player's interactArea intersects that of the Thing at thingArray.get(index)...
+                &&
+                currentThing.interactOn
+        ){
             displayPrompt = true; //display the interact Prompt
 
         } else if (index < thingArray.size() - 1) { //if not, and we aren't at the last entry in thingArray...

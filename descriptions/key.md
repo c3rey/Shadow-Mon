@@ -5,3 +5,10 @@ A RetrievableGameObject that can be used to open a [LockedDoor](lockeddoor.md) w
 | Variable | Type | Description                                         |
 |:--------:|:----:|-----------------------------------------------------|
 | keyCode  | int  | The code shared between the Key and its LockedDoor. |
+
+\
+\
+\
+__use()__
+
+Searches through [DoorManager's](doormanager.md) doors array for a door with a matching keyCode to this key.

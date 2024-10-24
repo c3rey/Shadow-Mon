@@ -18,17 +18,6 @@ public class Player extends Entity {
     public PlayerInventory inventory;
     public CollisionChecker cChecker;
     public KeyHandler keyH;
-    public boolean isWalking = false;
-
-    public static final int UP = 1;
-    public static final int DOWN = 2;
-    public static final int LEFT = 3;
-    public static final int RIGHT = 4;
-    public static final int UP_LEFT = 5;
-    public static final int UP_RIGHT = 6;
-    public static final int DOWN_LEFT = 7;
-    public static final int DOWN_RIGHT = 8;
-
 
     public Player() { //constructor
         keyH = World.keyH;
@@ -38,25 +27,26 @@ public class Player extends Entity {
 
         setDefaultValues();
         setPlayerImage();
+    }
+
+
+    private void setDefaultValues() {
+        worldX = 70;
+        worldY = 250;
+        speed = 4;
+        direction = DOWN;
 
         solidArea = new Rectangle(worldX, (worldY + 28), GamePanel.tileSize, (GamePanel.tileSize - 28));
         interactArea = new Rectangle(worldX, worldY, GamePanel.tileSize, GamePanel.tileSize);
         width = GamePanel.tileSize;
         height = GamePanel.tileSize;
 
-    }
-
-
-    private void setDefaultValues(){
-        worldX = 70;
-        worldY = 250;
-        speed = 4;
-        direction = "down";
+        interactOn = true;
     }
 
     private void setPlayerImage() { //loads the player image files
 
-        try{
+        try {
             up1 = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\Player\\mainchar-4.png.png"));
             up2 = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\Player\\mainchar-11.png.png"));
             up3 = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\Player\\mainchar-12.png.png"));
@@ -70,28 +60,28 @@ public class Player extends Entity {
             right2 = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\Player\\mainchar-6.png.png"));
             right3 = ImageIO.read(new File("C:\\Users\\Genny\\IdeaProjects\\ShadowMon\\res\\src\\Player\\mainchar-7.png.png"));
 
-        }
-        catch(IOException e){
+        } catch (IOException e) {
             System.err.println("Player files not loaded");
         }
 
     }
 
-    public void pickUp(RetrievableGameObject object){
+    public void pickUp(RetrievableGameObject object) {
         inventory.add(object);
     }
 
-    public boolean interactsWith(Thing thing){
+    public boolean interactsWith(Thing thing) {
         return interactArea.intersects(thing.interactArea) && keyH.playerEPressed;
     }
 
-    public boolean hasKeyFor(LockedDoor door){
+    public boolean hasKeyFor(LockedDoor door) {
         return inventory.hasKeyFor(door);
     }
 
 
-    public void update(){ //update method to be called in World.update()
-        if (!inventory.inventoryDrawn){
+    @Override
+    public void update() { //update method to be called in World.update()
+        if (!inventory.inventoryDrawn) {
             isWalking = false;
 
             //used to create Player walking animation
@@ -99,153 +89,152 @@ public class Player extends Entity {
             if (updateCount == 12) {
                 spriteCount++;
             }
-            if (updateCount == 24){
+            if (updateCount == 24) {
                 spriteCount = 0;
                 updateCount = 0;
             }
 
-            //direction conditions based on keyHandler
-            if (keyH.upPressed){
-                direction = "up";
-            }
-            else if (keyH.downPressed){
-                direction = "down";
-            }
-            else if (keyH.leftPressed){
-                direction = "left";
-            }
-            else if (keyH.rightPressed){
-                direction = "right";
-            }
 
-
-            switch (direction){
-                case "up":
+            //sets player image for when Player is standing still
+            switch (direction) {
+                case UP:
                     image = up1;
                     break;
 
-                case "down":
+                case DOWN:
                     image = down1;
                     break;
 
-                case "right":
+                case RIGHT:
                     image = right1;
                     break;
 
-                case "left":
+                case LEFT:
                     image = left1;
                     break;
 
             }
 
-            if (!collisionOn){ //movement only occurs if collisionOn is false
-                switch (direction){
-                    case "up":
-                        if (keyH.upPressed){
-                            if (spriteCount == 0){
-                                image = up2;
-                            } else if (spriteCount == 1) {
-                                image = up3;
-                            }
+            //direction conditions based on keyHandler
+            if (!movementLocked) {
+                if (keyH.upPressed) {
+                    direction = UP;
+                } else if (keyH.downPressed) {
+                    direction = DOWN;
+                } else if (keyH.leftPressed) {
+                    direction = LEFT;
+                } else if (keyH.rightPressed) {
+                    direction = RIGHT;
+                }
+            }
+            //updates walking animation while Player is movementLocked
+            else {
+                updateSprites();
+            }
+
+            // controlled movement only occurs if collisionOn is false and Player is allowed to move freely
+            if (!collisionOn && !movementLocked) {
+                switch (direction) {
+                    case UP:
+                        if (keyH.upPressed) {
+                            updateSprites();
 
                             //diagonal movement
-                            if (keyH.leftPressed){
+                            if (keyH.leftPressed) {
                                 Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y - speed, solidArea.width, solidArea.height);
-                                if (cChecker.checkTileCol(nextPlayerPosition, UP_LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
-                                    worldX -= speed;
-                                    isWalking = true;
+                                cChecker.checkForDoors(nextPlayerPosition);
+                                if (cChecker.checkTileCol(nextPlayerPosition, UP_LEFT) && cChecker.checkForObjects(nextPlayerPosition)) {
+                                    walk(LEFT);
                                 }
                             }
-                            if (keyH.rightPressed){
+                            if (keyH.rightPressed) {
                                 Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y - speed, solidArea.width, solidArea.height);
-                                if (cChecker.checkTileCol(nextPlayerPosition, UP_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
-                                    worldX += speed;
-                                    isWalking = true;
+                                cChecker.checkForDoors(nextPlayerPosition);
+                                if (cChecker.checkTileCol(nextPlayerPosition, UP_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)) {
+                                    walk(RIGHT);
                                 }
                             }
+
 
                             Rectangle nextPlayerPosition = new Rectangle(solidArea.x, solidArea.y - speed, solidArea.width, solidArea.height);
-                            if (cChecker.checkTileCol(nextPlayerPosition, UP) && cChecker.checkForObjects(nextPlayerPosition)){
-                                worldY -= speed;
-                                isWalking = true;
+                            cChecker.checkForDoors(nextPlayerPosition);
+                            if (cChecker.checkTileCol(nextPlayerPosition, UP) && cChecker.checkForObjects(nextPlayerPosition)) {
+                                walk(UP);
                             }
+
                         }
                         break;
-                    case "down":
-                        if (keyH.downPressed){
-                            if (spriteCount == 0){
-                                image = down2;
-                            } else if (spriteCount == 1) {
-                                image = down3;
-                            }
+                    case DOWN:
+                        if (keyH.downPressed) {
+                            updateSprites();
 
                             //diagonal movement
-                            if (keyH.leftPressed){
+                            if (keyH.leftPressed) {
                                 Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y + speed, solidArea.width, solidArea.height);
-                                if (cChecker.checkTileCol(nextPlayerPosition, DOWN_LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
-                                    worldX -= speed;
-                                    isWalking = true;
+                                cChecker.checkForDoors(nextPlayerPosition);
+                                if (cChecker.checkTileCol(nextPlayerPosition, DOWN_LEFT) && cChecker.checkForObjects(nextPlayerPosition)) {
+                                    walk(LEFT);
                                 }
                             }
-                            if (keyH.rightPressed){
+                            if (keyH.rightPressed) {
                                 Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y + speed, solidArea.width, solidArea.height);
-                                if (cChecker.checkTileCol(nextPlayerPosition, DOWN_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
-                                    worldX += speed;
-                                    isWalking = true;
+                                cChecker.checkForDoors(nextPlayerPosition);
+                                if (cChecker.checkTileCol(nextPlayerPosition, DOWN_RIGHT) && cChecker.checkForObjects(nextPlayerPosition)) {
+                                    walk(RIGHT);
                                 }
                             }
+
 
                             Rectangle nextPlayerPosition = new Rectangle(solidArea.x, solidArea.y + speed, solidArea.width, solidArea.height);
-                            if (cChecker.checkTileCol(nextPlayerPosition, DOWN) && cChecker.checkForObjects(nextPlayerPosition)){
-                                worldY += speed;
-                                isWalking = true;
+                            cChecker.checkForDoors(nextPlayerPosition);
+                            if (cChecker.checkTileCol(nextPlayerPosition, DOWN) && cChecker.checkForObjects(nextPlayerPosition)) {
+                                walk(DOWN);
                             }
+
+
                         }
                         break;
-                    case "left":
-                        if (keyH.leftPressed){
-                            if (spriteCount == 0){
-                                image = left2;
-                            }
+                    case LEFT:
+                        if (keyH.leftPressed) {
+                            updateSprites();
 
                             Rectangle nextPlayerPosition = new Rectangle(solidArea.x - speed, solidArea.y, solidArea.width, solidArea.height);
-                            if (cChecker.checkTileCol(nextPlayerPosition, LEFT) && cChecker.checkForObjects(nextPlayerPosition)){
-                                worldX -= speed;
-                                isWalking = true;
+                            cChecker.checkForDoors(nextPlayerPosition);
+                            if (cChecker.checkTileCol(nextPlayerPosition, LEFT) && cChecker.checkForObjects(nextPlayerPosition)) {
+                                walk(LEFT);
                             }
+
                         }
                         break;
-                    case "right":
-                        if(keyH.rightPressed){
-                            if (spriteCount == 0){
-                                image = right2;
-                            }
+                    case RIGHT:
+                        if (keyH.rightPressed) {
+                            updateSprites();
 
                             Rectangle nextPlayerPosition = new Rectangle(solidArea.x + speed, solidArea.y, solidArea.width, solidArea.height);
-                            if (cChecker.checkTileCol(nextPlayerPosition, RIGHT) && cChecker.checkForObjects(nextPlayerPosition)){
-                                worldX += speed;
-                                isWalking = true;
+                            cChecker.checkForDoors(nextPlayerPosition);
+                            if (cChecker.checkTileCol(nextPlayerPosition, RIGHT) && cChecker.checkForObjects(nextPlayerPosition)) {
+                                walk(RIGHT);
                             }
+
                         }
                         break;
-                }
 
+
+                }
             }
 
             //SOLIDAREA AND INTERACTAREA
             solidArea = new Rectangle((worldX + 14), (worldY + 28), (GamePanel.tileSize - 28), (GamePanel.tileSize - 32)); //dimensions of SolidArea
             interactArea = new Rectangle(worldX, worldY, GamePanel.tileSize, GamePanel.tileSize);
 
-            if (keyH.iPressed && !inventory.inventoryDrawn){
+            if (keyH.iPressed && !inventory.inventoryDrawn) {
                 inventory.inventoryDrawn = true;
                 keyH.mode = KeyHandler.INTERFACE;
 
             }
 
+            chaseIntendedPosition();
             keyH.playerEPressed = false; //so that the player only interacts once per button press
-
         }
     }
-
-
 }

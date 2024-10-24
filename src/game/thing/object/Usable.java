@@ -1,4 +1,6 @@
 package game.thing.object;
 
 
-public interface Usable {}
+public interface Usable {
+    void use();
+}

@@ -2,11 +2,11 @@ package game.world;
 
 import SFX.Sound;
 import game.GamePanel;
-import game.InteractManager;
 import game.KeyHandler;
+import game.pathing.PathFinder;
+import game.thing.entity.EntityManager;
 import game.thing.entity.Player;
 import game.thing.object.GameObject;
-import game.thing.object.Key;
 import game.thing.object.ObjectManager;
 import game.thing.object.RetrievableGameObject;
 import UI.UI;
@@ -29,15 +29,16 @@ public class World {
 
     public static UI ui = new UI();
 
+    public static EntityManager entityM = new EntityManager();
     public static TileManager tileM = new TileManager();
     public static LevelStream stream = new LevelStream();
     public static ObjectManager objM = new ObjectManager();
     public static DoorManager doorM = new DoorManager();
+    public static Sound sound = new Sound();
+    public static PathFinder pathfinder = new PathFinder();
 
     public static Level level;
     public static ArrayList<Thing> thingArray;
-    public static InteractManager intrM = new InteractManager();
-    public static Sound sound = new Sound();
 
     public World(GamePanel gp){
         this.gp = gp;
@@ -51,9 +52,10 @@ public class World {
 
     public void update(){
 
-        objM.updateObjects(player);
-        doorM.updateDoors(player);
-        player.update();
+        objM.updateObjects();
+        doorM.updateDoors();
+        entityM.update();
+        pathfinder.updatePaths();
         ui.update();
         sound.update();
 

@@ -1,13 +1,9 @@
 package UI.inventory;
 
-import UI.Option;
-import game.InteractManager;
-import game.thing.door.Door;
 import game.thing.door.LockedDoor;
 import game.thing.entity.Player;
 import game.thing.object.Key;
 import game.thing.object.RetrievableGameObject;
-import game.thing.object.Usable;
 
 public class PlayerInventory extends Inventory{
     Player player;

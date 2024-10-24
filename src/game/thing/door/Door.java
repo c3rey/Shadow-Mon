@@ -2,6 +2,7 @@ package game.thing.door;
 
 import game.GamePanel;
 import game.thing.Thing;
+import game.thing.entity.Player;
 import game.world.Level;
 import game.world.Map;
 import game.world.World;
@@ -37,9 +38,6 @@ public class Door extends Thing {
 
         setDoorImage(type);
         setDoorCoOrds();
-
-        solidArea = new Rectangle(worldX, worldY, width, height);
-        interactArea = new Rectangle(worldX, worldY, width, height + GamePanel.tileSize);
     }
 
     private void setDoorImage(int type){
@@ -65,8 +63,10 @@ public class Door extends Thing {
     public void update(){
         if (isClosed){
             image = doorClosedImage;
+            interactOn = true;
         }else{
             image = doorOpenImage;
+            interactOn = false;
         }
 
         if (level.currentMap != entryMap){
@@ -74,12 +74,20 @@ public class Door extends Thing {
             interactArea.setSize(0,0);
         }else{
             solidArea = new Rectangle(worldX, worldY, width, height);
-            interactArea = new Rectangle(worldX, worldY, width, height + GamePanel.tileSize);
+            interactArea = new Rectangle(worldX, worldY, width, height + GamePanel.tileSize/10);
+            if (!isClosed){
+                collisionOn = false;
+            }
         }
     }
 
     public void open(){
         isClosed = false;
         World.sound.playDoorOpening();
+    }
+
+    public void enterDoor(){
+        Level level = World.level;
+        level.goTo(exitMap);
     }
 }

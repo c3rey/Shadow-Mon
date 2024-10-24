@@ -26,6 +26,7 @@ public class RetrievableGameObject extends GameObject{
         setObject(objectNum);
 
         retrieved = false;
+        interactOn = true;
     }
 
 

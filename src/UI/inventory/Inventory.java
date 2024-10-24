@@ -2,7 +2,6 @@ package UI.inventory;
 
 import UI.Option;
 import game.GamePanel;
-import game.InteractManager;
 import game.KeyHandler;
 import game.thing.object.RetrievableGameObject;
 import game.thing.object.Usable;

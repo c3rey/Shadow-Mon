@@ -1,5 +1,7 @@
 package game;
 
+import game.thing.door.Door;
+import game.thing.door.DoorManager;
 import game.thing.entity.Player;
 import game.thing.object.GameObject;
 import game.thing.object.ObjectManager;
@@ -16,7 +18,6 @@ public class CollisionChecker {
     Level currentLevel;
     Map currentMap;
     Player player;
-    ObjectManager objectManager;
 
     public CollisionChecker(Player player){
         this.player = player;
@@ -204,7 +205,6 @@ public class CollisionChecker {
 
 
     public boolean checkForObjects(Rectangle nextPlayerPosition){ //checkObject(player, gameObject) for every gameObject in ObjectManager.objArray
-        objectManager = World.objM;
         boolean collisionOn = false;
 
         for (GameObject object : ObjectManager.objArray){
@@ -220,7 +220,7 @@ public class CollisionChecker {
     }
 
     private boolean checkObject(Rectangle nextPlayerPosition, GameObject gameObject){ //checks collision for a single GameObject
-        currentLevel = world.stream.level1;
+        currentLevel = World.stream.level1;
         currentMap = currentLevel.currentMap;
         boolean collisionOn = false;
 
@@ -234,20 +234,18 @@ public class CollisionChecker {
 
 
 
-    private Rectangle getNextPlayerPosition() {
-        Rectangle nextPlayerPosition = new Rectangle(player.solidArea.x, player.solidArea.y, player.solidArea.width, player.solidArea.height);
-        nextPlayerPosition = switch (player.direction) {
-            case "up" ->
-                    new Rectangle(player.solidArea.x, player.solidArea.y - player.speed, player.solidArea.width, player.solidArea.height);
-            case "down" ->
-                    new Rectangle(player.solidArea.x, player.solidArea.y + player.speed, player.solidArea.width, player.solidArea.height);
-            case "left" ->
-                    new Rectangle(player.solidArea.x - player.speed, player.solidArea.y, player.solidArea.width, player.solidArea.height);
-            case "right" ->
-                    new Rectangle(player.solidArea.x + player.speed, player.solidArea.y, player.solidArea.width, player.solidArea.height);
-            default -> nextPlayerPosition;
-        };
-        return nextPlayerPosition;
+    public void checkForDoors(Rectangle nextPlayerPosition){
+        for(Door door : DoorManager.doors){ //EVENTUALLY CHANGE TO MAP.DOORS
+            if (nextPlayerPosition.intersects(door.solidArea) //first checks to see whether the Player is close enough to enter a door
+                    &&
+                    nextPlayerPosition.x >= door.worldX && nextPlayerPosition.x + nextPlayerPosition.width <= door.solidArea.x + door.solidArea.width
+                    //if the Player's solidArea is within the confines of the Door
+                    &&
+                    !door.isClosed
+            ){
+                door.enterDoor();
+            }
+        }
     }
 
 

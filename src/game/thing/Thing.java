@@ -9,6 +9,7 @@ public class Thing implements Comparable<Thing>{
     public Rectangle solidArea;
     public Rectangle interactArea;
     public boolean collisionOn;
+    public boolean interactOn;
 
 
     public void draw(Graphics2D g2){

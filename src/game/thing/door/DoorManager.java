@@ -10,12 +10,14 @@ import static game.world.LevelStream.*;
 public class DoorManager {
     Level level;
     UI ui;
+    Player player;
     final static int currentDoorCount = 1;
     public static final Door[] doors = new Door[currentDoorCount];
 
     public DoorManager(){
         ui = World.ui;
         level = World.level;
+        player = World.player;
 
         setDoors();
     }
@@ -24,11 +26,10 @@ public class DoorManager {
         doors[0] = new LockedDoor(map1, map2, Door.WOODENDOOR, 3, 4, 1);
     }
 
-    public void updateDoors(Player player){
+    public void updateDoors(){
 
         for (Door door : doors){
             door.update();
-
             if (player.interactsWith(door)){
                 if (door.isClosed){ //If the door is closed...
 
@@ -50,8 +51,6 @@ public class DoorManager {
                         door.open(); //Door opens
 
                     }
-                }else{ //If the door is open...
-                    level.goTo(door.exitMap); //Player is taken to the door's exitMap
                 }
             }
         }

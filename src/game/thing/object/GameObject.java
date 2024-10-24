@@ -23,6 +23,8 @@ public class GameObject extends Thing{
 
         interactArea.width = width + 10;
         interactArea.height = height + 10;
+
+        interactOn = false;
     }
 
     private void setObject(int objectNum){

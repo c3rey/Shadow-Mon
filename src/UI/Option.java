@@ -3,6 +3,7 @@ package UI;
 
 import UI.inventory.Inventory;
 import game.thing.object.RetrievableGameObject;
+import game.thing.object.Usable;
 import game.world.World;
 
 import javax.imageio.ImageIO;
@@ -90,7 +91,8 @@ public class Option {
         RetrievableGameObject slotObject = inventorySlot.currentObject;
         switch (type){
             case USE:
-                World.intrM.use(slotObject);
+                assert slotObject instanceof Usable;
+                ((Usable) slotObject).use();
                 break;
 
             case INSPECT:

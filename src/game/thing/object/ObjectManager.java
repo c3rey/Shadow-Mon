@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
+import static game.world.LevelStream.map1;
 import static game.world.LevelStream.map2;
 
 public class ObjectManager {
@@ -36,7 +37,7 @@ public class ObjectManager {
     }
 
     private void setObjectArray(){
-        objArray[0] = new Key(map2, KEY1, 350, 280);
+        objArray[0] = new Key(map1, KEY1, 350, 280);
     }
 
 
@@ -69,7 +70,7 @@ public class ObjectManager {
 
 
     //updates objects in World.updateDoors()
-    public void updateObjects(Player player){
+    public void updateObjects(){
 
         spriteCount++; //is incremented every time updateDoors() is called, 60 times per second
 
@@ -90,9 +91,6 @@ public class ObjectManager {
             if (gameObject instanceof RetrievableGameObject){ // if the gameObject is a retrievableGameObject...
 
                 ((RetrievableGameObject) gameObject).update(updateCount);
-
-
-
 
 
                 //and checks whether the player has gotten close enough to the game.object to interact with it
